@@ -15,7 +15,10 @@ config :fatex, FatexWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "rLSmp0b+3UfMzaQKc12ftJSkL7Qhxgr1vkWxIuDnRnY+k9lT09qYUuFDWFxd4PLF",
   render_errors: [view: FatexWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Fatex.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Fatex.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "pURF/QFNoDhlQvvf2uvTdIn8ZnVYLy8W"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
