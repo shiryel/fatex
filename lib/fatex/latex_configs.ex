@@ -1,26 +1,56 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Fatex.Repo.insert!(%Fatex.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+defmodule Fatex.LatexConfigs do
+  @moduledoc """
+  The LatexConfigs context.
+  """
 
-alias Fatex.Repo
-alias Fatex.LatexConfigs.{Model, Step, Section}
-alias Fatex.Accounts.User
+  import Ecto.Query, warn: false
+  alias Fatex.Repo
 
-Repo.insert!(%User{
-  name: "vinicius",
-  email: "vinicius_molina@hotmail.com",
-  password: "test",
-  models: [
+  alias Fatex.LatexConfigs.{Model, Step, Section}
+
+  @doc """
+		Examples:
+  	iex> u = Fatex.Accounts.get_user! 1
+			%Fatex.Accounts.User{...}
+		iex> list_models_from_user u
+			%Fatex.LatexConfigs.Model{...}
+  """
+  def list_models_from_user(user) do
+    from(m in Model,
+      where: m.user_id == ^user.id
+    )
+    |> Repo.all()
+  end
+
+  def list_steps_from_model(model) do
+    from(s in Step,
+      where: s.model_id == ^model.id
+    )
+    |> Repo.all()
+  end
+
+  def list_sections_from_step(step) do
+    from(section in Section,
+      where: section.step_id == ^step.id
+    )
+    |> Repo.all()
+  end
+
+  def update_section(%Section{} = section, attrs) do
+    section
+    |> Section.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Default model for fatec
+
+  Define all steps and default sections needed to a TG
+  """
+  def new_fatec_model(user, name) do
     %Model{
-      name: "default",
+      user_id: user.id,
+      name: name,
       steps: [
         %Step{
           name: "Informações",
@@ -32,7 +62,6 @@ Repo.insert!(%User{
             }
           ]
         },
-
         %Step{
           name: "Introdução",
           sections: [
@@ -43,7 +72,6 @@ Repo.insert!(%User{
             }
           ]
         },
-
         %Step{
           name: "Desenvolvimento",
           sections: [
@@ -54,7 +82,6 @@ Repo.insert!(%User{
             }
           ]
         },
-
         %Step{
           name: "Testes e Resultados",
           sections: [
@@ -70,7 +97,6 @@ Repo.insert!(%User{
             }
           ]
         },
-
         %Step{
           name: "Discussão e Conclusão",
           sections: [
@@ -86,7 +112,6 @@ Repo.insert!(%User{
             }
           ]
         },
-
         %Step{
           name: "Resumo",
           sections: [
@@ -104,5 +129,6 @@ Repo.insert!(%User{
         }
       ]
     }
-  ]
-})
+    |> Repo.insert!()
+  end
+end

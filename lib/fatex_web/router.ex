@@ -18,6 +18,7 @@ defmodule FatexWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/hello", MainMenuLive
   end
 
   # Other scopes may use custom stacks.
