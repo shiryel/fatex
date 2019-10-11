@@ -15,6 +15,12 @@ defmodule Fatex.LatexConfigs do
 		iex> list_models_from_user u
 			%Fatex.LatexConfigs.Model{...}
   """
+  def list_models_from_user(id) when is_integer(id) do
+    from(m in Model,
+      where: m.user_id == ^id
+    )
+    |> Repo.all()
+  end
   def list_models_from_user(user) do
     from(m in Model,
       where: m.user_id == ^user.id
@@ -22,6 +28,12 @@ defmodule Fatex.LatexConfigs do
     |> Repo.all()
   end
 
+  def list_steps_from_model(id) when is_integer(id) do
+    from(s in Step,
+      where: s.model_id == ^id
+    )
+    |> Repo.all()
+  end
   def list_steps_from_model(model) do
     from(s in Step,
       where: s.model_id == ^model.id
@@ -29,11 +41,21 @@ defmodule Fatex.LatexConfigs do
     |> Repo.all()
   end
 
+  def list_sections_from_step(id) when is_integer(id) do
+    from(section in Section,
+      where: section.step_id == ^id
+    )
+    |> Repo.all()
+  end
   def list_sections_from_step(step) do
     from(section in Section,
       where: section.step_id == ^step.id
     )
     |> Repo.all()
+  end
+
+  def get_section(id) do
+    Repo.get!(Section, id)
   end
 
   def update_section(%Section{} = section, attrs) do
