@@ -1,12 +1,19 @@
 <div class="columns">
-<%= for step <- @steps do %>
-  <div phx-click="choose_step" phx-value-step_id="<%= step.id %>" class="column button">
-    <%= step.name %>
-  </div>
-<% end %>
-</div>
-<section>
-  <%= if @step_choosed != nil do %>
-    <%= live_render(@socket,  FatexWeb.StepLive, session: %{step_id: @step_choosed}, id: @step_choosed) %>
+  <%= for step <- @steps do %>
+    <div phx-click="choose_step" phx-value-step_id="<%= step.id %>" class="column button">
+      <%= step.name %>
+    </div>
   <% end %>
+</div>
+<section class="columns">
+  <div>
+    <%= if @step_choosed != nil do %>
+      <%= live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed}, id: @step_choosed) %>
+    <% end %>
+  </div>
+  <section>
+    <%= if @step_choosed != nil do %>
+      <%= live_render(@socket,  FatexWeb.StepLive, session: %{step_id: @step_choosed}, id: @step_choosed) %>
+    <% end %>
+  </section>
 </section>

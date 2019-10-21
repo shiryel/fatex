@@ -28,7 +28,12 @@ Repo.insert!(%User{
             %Section{
               name: "Explicação inicial",
               content: "",
-              type: "text"
+              type: "root"
+            },
+            %Section{
+              name: "Explicação inicial",
+              content: "",
+              type: "template"
             }
           ]
         },
@@ -39,7 +44,7 @@ Repo.insert!(%User{
             %Section{
               name: "Explicação inicial",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -50,7 +55,7 @@ Repo.insert!(%User{
             %Section{
               name: "Explicação inicial",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -61,12 +66,12 @@ Repo.insert!(%User{
             %Section{
               name: "Testes",
               content: "",
-              type: "text"
+              type: "root"
             },
             %Section{
               name: "Resultados",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -77,12 +82,12 @@ Repo.insert!(%User{
             %Section{
               name: "Discussão",
               content: "",
-              type: "text"
+              type: "root"
             },
             %Section{
               name: "Conclusão",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -93,12 +98,12 @@ Repo.insert!(%User{
             %Section{
               name: "Resumo",
               content: "",
-              type: "text"
+              type: "root"
             },
             %Section{
               name: "Abstract",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         }

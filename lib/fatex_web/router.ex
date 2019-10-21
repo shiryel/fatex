@@ -20,6 +20,7 @@ defmodule FatexWeb.Router do
     live "/", HomeLive
     live "/model/:model_id", ModelLive do
       live "/step", StepLive, session: [:step_id]
+      live "/menu", MenuLive, session: [:step_id]
     end
   end
 

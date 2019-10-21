@@ -7,6 +7,7 @@ defmodule Fatex.LatexConfigs.Section do
     field :name, :string
     field :content, :string
 
+    # root | child | template
     field :type, :string
 
     field :children, {:array, :integer}, default: []

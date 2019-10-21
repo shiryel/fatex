@@ -5,7 +5,6 @@ defmodule Fatex.LatexConfigs do
   import Ecto.Query, warn: false
   alias Fatex.Repo
 
-  alias Fatex.Accounts
   alias Fatex.LatexConfigs.{Model, Step, Section}
 
   @doc """
@@ -68,14 +67,52 @@ defmodule Fatex.LatexConfigs do
       iex> u = Accounts.get_user 1
       iex> with [model | _] <- list_models_from_user(u),
       ...>      [step | _] <- list_steps_from_model(model),
-      ...>      [%Section{} | _] <- list_sections_from_step(step), do: :ok
+      ...>      [%Section{type: type} | _] <- list_sections_from_step(step),
+      ...>      false <- type in ["template"], do: :ok
       :ok
   """
   def list_sections_from_step(step) do
     Repo.all(
       from section in Section,
-        where: section.step_id == ^step.id
+      where: section.step_id == ^step.id,
+      where: section.type != "template"
     )
+  end
+
+  @doc """
+  ## Examples:
+
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      [step | _] <- list_steps_from_model(model),
+      ...>      [%Section{type: type} | _] <- list_template_sections_from_step(step),
+      ...>      true <- type in ["template"], do: :ok
+      :ok
+  """
+  def list_template_sections_from_step(step) do
+    Repo.all(
+      from section in Section,
+      where: section.step_id == ^step.id,
+      where: section.type == "template"
+    )
+  end
+
+  @doc """
+  ## Examples
+
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      [step | _] <- list_steps_from_model(model),
+      ...>      [template | _] = list_template_sections_from_step(step),
+      ...>      {:ok, new_template} <- clone_template_to_section_type(template, "child"),
+      ...>      true <- template.id != new_template,
+      ...>      true <- new_template.step_id == template.step_id,
+      ...>      true <- new_template.type == "child", do: :ok
+      :ok
+  """
+  def clone_template_to_section_type(%Section{} = section, type) when type in ["root", "child", "template"] do
+    %Section{name: section.name, content: section.content, type: type, children: section.children, step_id: section.step_id}
+    |> Repo.insert()
   end
 
   @doc """
