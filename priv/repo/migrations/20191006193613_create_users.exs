@@ -36,9 +36,7 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
       add :type, :string
 
       # recursion os sections to mont on screen
-      add :child_id, :integer
-      add :pos_child_id, :integer
-      add :pre_child_id, :integer
+      add :children, {:array, :integer}
 
       add :step_id, references(:steps)
 

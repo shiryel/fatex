@@ -13,9 +13,10 @@ defmodule Fatex.Accounts do
 
   ## Examples
 
-      iex> list_users()
-      [%User{}, ...]
-
+      iex> result = list_users()
+      iex> with [user | _] <- result,
+      ...>      %Fatex.Accounts.User{} <- user, do: :ok
+      :ok
   """
   def list_users do
     Repo.all(User)
@@ -24,30 +25,29 @@ defmodule Fatex.Accounts do
   @doc """
   Gets a single user.
 
-  Raises `Ecto.NoResultsError` if the User does not exist.
-
   ## Examples
 
-      iex> get_user!(123)
-      %User{}
+      iex> result = get_user(1)
+      iex> with %Fatex.Accounts.User{} <- result, do: :ok
+      :ok
 
-      iex> get_user!(456)
-      ** (Ecto.NoResultsError)
-
+      iex> get_user(213812)
+      nil
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user(id), do: Repo.get(User, id)
 
   @doc """
   Creates a user.
 
   ## Examples
 
-      iex> create_user(%{field: value})
-      {:ok, %User{}}
+      iex> with result = create_user(%{name: "jubileu", email: "jubileu@hotmail.com", password: "hash_secret"}),
+      ...>      {:ok, %User{}} <- result, do: :ok
+      :ok
 
-      iex> create_user(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+      iex> with result <- create_user(%{field: "asdkj"}),
+      ...> {:error, %Ecto.Changeset{}} <- result, do: :ok
+      :ok
   """
   def create_user(attrs \\ %{}) do
     %User{}
@@ -60,12 +60,10 @@ defmodule Fatex.Accounts do
 
   ## Examples
 
-      iex> update_user(user, %{field: new_value})
-      {:ok, %User{}}
-
-      iex> update_user(user, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+      iex> u = get_user 1
+      iex> with result = update_user(u, %{name: "jubileu"}),
+      ...>      {:ok, %User{name: "jubileu"}} <- result, do: :ok
+      :ok
   """
   def update_user(%User{} = user, attrs) do
     user
@@ -78,12 +76,9 @@ defmodule Fatex.Accounts do
 
   ## Examples
 
-      iex> delete_user(user)
-      {:ok, %User{}}
-
-      iex> delete_user(user)
-      {:error, %Ecto.Changeset{}}
-
+      iex> with {:ok, user} = create_user(%{name: "jubileu", email: "jubileu@hotmail.com", password: "hash_secret"}),
+      ...>      {:ok, %User{}} <- delete_user(user), do: :ok
+      :ok
   """
   def delete_user(%User{} = user) do
     Repo.delete(user)
@@ -94,8 +89,8 @@ defmodule Fatex.Accounts do
 
   ## Examples
 
-      iex> change_user(user)
-      %Ecto.Changeset{source: %User{}}
+  iex> with %Ecto.Changeset{} <- change_user(%User{}), do: :ok
+  :ok
 
   """
   def change_user(%User{} = user) do

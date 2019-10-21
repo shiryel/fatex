@@ -1,92 +1,26 @@
 defmodule FatexWeb.ModelLive do
-  use Phoenix.LiveView
-  import Phoenix.HTML.Form
-  import FatexWeb.ErrorHelpers
-  alias Fatex.LatexConfigs
+  use FatexWeb, :live
+  require Logger
 
   def render(assigns) do
-    ~L"""
-    <section>
-      <%= main_menu(assigns) %>
-      <div class="colums">
-        <div class="column">
-          temp
-        </div>
-        <div class="column">
-          <%= user_input(assigns) %>
-        </div>
-      </div>
-    </section>
-    """
-  end
-
-  def main_menu(assigns) do
-    ~L"""
-    <div class="columns">
-    <%= for step <- @steps do %>
-      <div class="column button">
-        <%= step.name %>
-      </div>
-    <% end %>
-    </div>
-    """
-  end
-
-  def user_input(assigns) do
-    ~L"""
-    <%= temp(assigns) %>
-    """
-  end
-
-  def temp(assigns) do
-    ~L"""
-    <div class="box">
-      <%= f = form_for @changeset, "#", [phx_change: :update] %>
-        <%= label f, :id %>
-        <%= text_input f, :id %>
-        <%= error_tag f, :id %>
-
-        <%= label f, :name %>
-        <%= text_input f, :name %>
-        <%= error_tag f, :name %>
-
-        <%= label f, :type %>
-        <%= text_input f, :type %>
-        <%= error_tag f, :type %>
-
-        <%= label f, :content %>
-        <%= text_input f, :content %>
-        <%= error_tag f, :content %>
-      </form>
-    </div>
-    """
+    FatexWeb.ModelView.render("index.html", assigns)
   end
 
   def mount(_session, socket) do
     {:ok, socket}
   end
 
-  def handle_params(_params = %{"id" => id}, _uri, socket) do
-    steps = LatexConfigs.list_steps_from_model(String.to_integer(id))
+  def handle_params(_params = %{"model_id" => model_id}, _uri, socket) do
+    model = LatexConfigs.get_model(model_id)
+    steps = LatexConfigs.list_steps_from_model(model)
 
-    section =
-      List.first(LatexConfigs.list_sections_from_step(List.first(steps)))
-      |> LatexConfigs.Section.changeset(%{})
-
-    {:noreply, assign(socket, steps: steps, changeset: section)}
+    {:noreply, assign(socket, steps: steps, step_choosed: nil)}
   end
 
-  alias LatexConfigs.Section
+  def handle_event("choose_step", %{"step_id" => step_id}, socket) do
+    step = LatexConfigs.get_step(step_id)
 
-  def handle_event("update", %{"section" => params}, socket) do
-    {_, changeset} =
-      LatexConfigs.get_section(params["id"])
-      |> LatexConfigs.update_section(params)
-
-    changeset =
-      changeset
-      |> LatexConfigs.Section.changeset(%{})
-
-    {:noreply, assign(socket, changeset: changeset)}
+    {:noreply, update(socket, :step_choosed, fn _ -> step.id end)}
   end
+
 end

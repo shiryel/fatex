@@ -18,7 +18,9 @@ defmodule FatexWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive
-    live "/model/:id", ModelLive
+    live "/model/:model_id", ModelLive do
+      live "/step", StepLive, session: [:step_id]
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -2,7 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :fatex, Fatex.Repo,
-  username: "vinicius1",
+  username: "postgres",
   password: "postgres",
   database: "fatex_dev",
   hostname: "localhost",

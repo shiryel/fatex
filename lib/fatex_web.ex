@@ -44,7 +44,7 @@ defmodule FatexWeb do
       import FatexWeb.Gettext
       alias FatexWeb.Router.Helpers, as: Routes
       import Phoenix.LiveView,
-        only: [live_render: 2, live_render: 3, live_link: 1, live_link: 2]
+        only: [live_render: 2, live_render: 3, live_link: 1, live_link: 2, sigil_L: 2]
     end
   end
 
@@ -55,6 +55,17 @@ defmodule FatexWeb do
       import Phoenix.Controller
       import Phoenix.LiveView.Router
     end
+  end
+
+  def live do
+    quote do
+      use Phoenix.LiveView
+      alias Fatex.{LatexConfigs, Accounts}
+      alias Fatex.LatexConfigs.{Model, Section, Step}
+      alias Fatex.Accounts.User
+      alias FatexWeb.Router.Helpers, as: Routes
+    end
+
   end
 
   def channel do

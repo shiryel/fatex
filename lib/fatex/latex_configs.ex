@@ -2,62 +2,105 @@ defmodule Fatex.LatexConfigs do
   @moduledoc """
   The LatexConfigs context.
   """
-
   import Ecto.Query, warn: false
   alias Fatex.Repo
 
+  alias Fatex.Accounts
   alias Fatex.LatexConfigs.{Model, Step, Section}
 
   @doc """
-		Examples:
-  	iex> u = Fatex.Accounts.get_user! 1
-			%Fatex.Accounts.User{...}
-		iex> list_models_from_user u
-			%Fatex.LatexConfigs.Model{...}
+  ## Examples:
+
+      iex> u = Accounts.get_user 1
+      iex> with [%Model{} | _] <- list_models_from_user(u), do: :ok 
+      :ok
   """
-  def list_models_from_user(id) when is_integer(id) do
-    from(m in Model,
-      where: m.user_id == ^id
-    )
-    |> Repo.all()
-  end
   def list_models_from_user(user) do
-    from(m in Model,
-      where: m.user_id == ^user.id
+    Repo.all(
+      from m in Model,
+        where: m.user_id == ^user.id
     )
-    |> Repo.all()
   end
 
-  def list_steps_from_model(id) when is_integer(id) do
-    from(s in Step,
-      where: s.model_id == ^id
-    )
-    |> Repo.all()
+  @doc """
+  ## Examples:
+
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      %Model{} <- get_model(model.id), do: :ok
+      :ok
+  """
+  def get_model(id) do
+    Repo.get(Model, id)
   end
+
+  @doc """
+  ## Examples:
+
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      [%Step{} | _] <- list_steps_from_model(model), do: :ok
+      :ok
+  """
   def list_steps_from_model(model) do
-    from(s in Step,
-      where: s.model_id == ^model.id
+    Repo.all(
+      from s in Step,
+        where: s.model_id == ^model.id
     )
-    |> Repo.all()
   end
 
-  def list_sections_from_step(id) when is_integer(id) do
-    from(section in Section,
-      where: section.step_id == ^id
-    )
-    |> Repo.all()
+  @doc """
+  ## Examples:
+
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      [step | _] <- list_steps_from_model(model),
+      ...>      %Step{} <- get_step(step.id), do: :ok
+      :ok
+  """
+  def get_step(id) do
+    Repo.get(Step, id)
   end
+
+  @doc """
+  ## Examples:
+
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      [step | _] <- list_steps_from_model(model),
+      ...>      [%Section{} | _] <- list_sections_from_step(step), do: :ok
+      :ok
+  """
   def list_sections_from_step(step) do
-    from(section in Section,
-      where: section.step_id == ^step.id
+    Repo.all(
+      from section in Section,
+        where: section.step_id == ^step.id
     )
-    |> Repo.all()
   end
 
-  def get_section(id) do
-    Repo.get!(Section, id)
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+
+  ## Examples
+
+  iex> with %Ecto.Changeset{} <- change_section(%Section{}), do: :ok
+  :ok
+  """
+  def change_section(section) do
+    Section.changeset(section, %{})
   end
 
+  @doc """
+  ## Examples:
+
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      [step | _] <- list_steps_from_model(model),
+      ...>      [section | _] <- list_sections_from_step(step),
+      ...>      {:ok, %Section{content: "test"}} <- 
+      ...>        update_section(section, %{content: "test"}), do: :ok
+      :ok
+  """
   def update_section(%Section{} = section, attrs) do
     section
     |> Section.changeset(attrs)
@@ -65,7 +108,139 @@ defmodule Fatex.LatexConfigs do
   end
 
   @doc """
+  ## Examples:
+
+      iex> s = Repo.get Section, 2
+      iex> with [] <- list_section_children(s), do: :ok
+      :ok
+      iex> u = Accounts.get_user 1
+      iex> with [model | _] <- list_models_from_user(u),
+      ...>      [step | _] <- list_steps_from_model(model),
+      ...>      [section | _] <- list_sections_from_step(step),
+      ...>      {:ok, new_section} <- section_append_child(section, s),
+      ...>      [%Section{} | _] <- list_section_children(new_section), do: :ok
+      :ok
+  """
+  def list_section_children(%Section{} = section) do
+    children = section.children
+
+    Repo.all(
+      from s in Section,
+        where: s.id in ^children
+    )
+  end
+
+  @doc """
+  Add section (child) as last child in the section (father) children list
+
+  ## Examples:
+
+      iex> s1 = get_section 1
+      iex> s2 = get_section 2
+      iex> with {:ok, section} <- section_append_child(s1, s2),
+      ...>      %Section{children: children} <- section,
+      ...>      2 <- List.last(children), do: :ok
+      :ok
+  """
+  def section_append_child(%Section{} = section, %Section{} = child) do
+    update_section(section, %{children: section.children ++ [child.id]})
+  end
+
+  @doc """
+  Add section (child) as first child in the section (father) children list
+
+  ## Examples:
+
+      iex> s1 = get_section 1
+      iex> s2 = get_section 2
+      iex> with {:ok, section} <- section_append_child(s1, s2),
+      ...>      %Section{children: children} <- section,
+      ...>      2 <- List.first(children), do: :ok
+      :ok
+  """
+  def section_prepend_child(%Section{} = section, %Section{} = child) do
+    update_section(section, %{children: [child.id | section.children]})
+  end
+
+  @doc """
+  Append section (parent) in the parent using father children list
+
+  ## Examples:
+
+      iex> s1 = get_section 1
+      iex> s2 = get_section 2
+      iex> s3 = get_section 4
+      iex> with {:ok, _father} <- section_append_child(s1, s2),
+      ...>      {:ok, father} <- section_append(s2, s3),
+      ...>      [2, 4] <- father.children, do: :ok
+      :ok
+  """
+  def section_append(%Section{} = section, %Section{} = child) do
+    [father | _] =
+      Repo.all(
+        from s in Section,
+          where: ^section.id in s.children
+      )
+
+    index = Enum.find_index(father.children, &(&1 == section.id))
+    new_father_children = List.insert_at(father.children, index + 1, child.id)
+
+    update_section(father, %{children: new_father_children})
+  end
+
+  @doc """
+  Prepend section (parent) in the parent using father children list
+
+  ## Examples:
+
+      iex> s1 = get_section 1
+      iex> s2 = get_section 2
+      iex> s3 = get_section 4
+      iex> with {:ok, _father} <- section_append_child(s1, s2),
+      ...>      {:ok, father} <- section_prepend(s2, s3),
+      ...>      [4, 2] <- father.children, do: :ok
+      :ok
+  """
+  def section_prepend(%Section{} = section, %Section{} = child) do
+    [father | _] =
+      Repo.all(
+        from s in Section,
+          where: ^section.id in s.children
+      )
+
+    index = Enum.find_index(father.children, &(&1 == section.id))
+    new_father_children = List.insert_at(father.children, index, child.id)
+
+    update_section(father, %{children: new_father_children})
+  end
+
+  @doc """
+  ## Examples:
+
+      iex> with %Section{} <- get_section(1), do: :ok
+      :ok
+  """
+  def get_section(id) do
+    Repo.get(Section, id)
+  end
+
+  @doc """
+  ## Examples:
+
+      iex> with section <- get_section(3), 
+      ...>      {:ok, %Section{}} <- delete_section(section), do: :ok
+      :ok
+  """
+  def delete_section(%Section{} = section) do
+    Repo.delete(section)
+  end
+
+  @doc """
   Default model for fatec
+
+  This model has tow types:
+  root -> Indicate to not add sections as parents, only as children, and cannot be deleted
+  child -> Section as a child, he has a father in the DB and can be deleted
 
   Define all steps and default sections needed to a TG
   """
@@ -80,7 +255,7 @@ defmodule Fatex.LatexConfigs do
             %Section{
               name: "Explicação inicial",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -90,7 +265,7 @@ defmodule Fatex.LatexConfigs do
             %Section{
               name: "Explicação inicial",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -100,7 +275,7 @@ defmodule Fatex.LatexConfigs do
             %Section{
               name: "Explicação inicial",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -110,12 +285,12 @@ defmodule Fatex.LatexConfigs do
             %Section{
               name: "Testes",
               content: "",
-              type: "text"
+              type: "root"
             },
             %Section{
               name: "Resultados",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -125,12 +300,12 @@ defmodule Fatex.LatexConfigs do
             %Section{
               name: "Discussão",
               content: "",
-              type: "text"
+              type: "root"
             },
             %Section{
               name: "Conclusão",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         },
@@ -140,12 +315,12 @@ defmodule Fatex.LatexConfigs do
             %Section{
               name: "Resumo",
               content: "",
-              type: "text"
+              type: "root"
             },
             %Section{
               name: "Abstract",
               content: "",
-              type: "text"
+              type: "root"
             }
           ]
         }

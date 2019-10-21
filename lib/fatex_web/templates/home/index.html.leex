@@ -1,0 +1,5 @@
+<%= for model <- @models do %>
+  <div class="box">
+    <button phx-click="go_to" phx-value-model_id=<%= model.id %>><%= model.name %></button>
+  </div>
+<% end %>

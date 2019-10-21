@@ -1,29 +1,22 @@
 defmodule FatexWeb.HomeLive do
-  use Phoenix.LiveView
-  alias Fatex.LatexConfigs
-  alias FatexWeb.Router.Helpers, as: Routes
+  use FatexWeb, :live
 
   def render(assigns) do
-    ~L"""
-    <%= for model <- @models do %>
-      <div class="box">
-        <button phx-click="go_to" phx-value-id=<%= model.id %>><%= model.name %></button>
-      </div>
-    <% end %>
-    """
+    FatexWeb.HomeView.render("index.html", assigns)
   end
 
   def mount(_params, socket) do
     models = 
-      Fatex.Accounts.get_user!(1)
+      Fatex.Accounts.get_user(1)
       |> LatexConfigs.list_models_from_user()
+
     {:ok, assign(socket, models: models)}
   end
 
-  def handle_event("go_to", %{"id" => id}, socket) do
+  def handle_event("go_to", %{"model_id" => model_id}, socket) do
     {:noreply,
       socket
-        |> live_redirect(to: Routes.live_path(socket, FatexWeb.ModelLive, id))
+        |> live_redirect(to: Routes.live_path(socket, FatexWeb.ModelLive, model_id))
     }
   end
 end

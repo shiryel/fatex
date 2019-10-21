@@ -9,9 +9,7 @@ defmodule Fatex.LatexConfigs.Section do
 
     field :type, :string
 
-    field :child_id, :integer
-    field :pos_child_id, :integer
-    field :pre_child_id, :integer
+    field :children, {:array, :integer}, default: []
 
     belongs_to(:step, Step)
 
@@ -20,8 +18,8 @@ defmodule Fatex.LatexConfigs.Section do
 
   def changeset(model, attrs) do
     model
-    |> cast(attrs, ~w[name content type child_id pos_child_id pre_child_id]a)
-    |> validate_required(~w[name content type]a)
+    |> cast(attrs, ~w[name content type children]a)
+    |> validate_required(~w[name type]a)
   end
   
 end
