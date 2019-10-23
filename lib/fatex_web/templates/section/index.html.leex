@@ -1,8 +1,7 @@
-  <%= render(__MODULE__, "_section.html", section: @root_section) %>
-  <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append_child", label: "Adicionar Filho") %>
+  <%= render(__MODULE__, "_section.html", to_add: @to_add, section: @root_section) %>
   <section>
     <% childs = list_children_sections(@root_section.data) %>
     <%= for child <- childs do %>
-      <%= render(__MODULE__, "_section.html", section: child) %>
+      <%= render(__MODULE__, "_section.html", to_add: @to_add, section: child) %>
     <% end %>
   <section>
