@@ -1,0 +1,5 @@
+<%= if @to_add do %>
+  <div phx-click="<%= @name %>" phx-value-to_add="<%= @to_add %>" phx-value-section_id="<%= @section.data.id %>" class="column button">
+    <%= @label %>
+  </div>
+<% end %>

@@ -1,1 +1,3 @@
-<%= show_sections_from_step(assigns, @step) %>
+<%= for root_section <- @root_sections do %>
+  <%= live_render(@socket,  FatexWeb.SectionLive, session: %{root_section_id: root_section.id}, id: root_section.id) %>
+<% end %>

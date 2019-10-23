@@ -8,7 +8,7 @@
 <section class="columns">
   <div>
     <%= if @step_choosed != nil do %>
-      <%= live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed}, id: @step_choosed) %>
+      <%= #live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed}, id: @step_choosed) %>
     <% end %>
   </div>
   <section>
