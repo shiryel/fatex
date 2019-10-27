@@ -1,3 +1,5 @@
-<section>
-  <%= inspect @templates %>
-</section>
+<%= for template <- @templates do %>
+<button class="button">
+  <%= template.name %>
+</button>
+<% end %>
