@@ -1,5 +1,5 @@
 <%= for template <- @templates do %>
-<button class="button">
+  <button class="button" phx-click="to_add" phx-value-template_id="<%= template.id %>">
   <%= template.name %>
 </button>
 <% end %>

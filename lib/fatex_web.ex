@@ -64,6 +64,7 @@ defmodule FatexWeb do
       alias Fatex.LatexConfigs.{Model, Section, Step}
       alias Fatex.Accounts.User
       alias FatexWeb.Router.Helpers, as: Routes
+      alias FatexWeb.PubSub.Live, as: PubSub
     end
 
   end

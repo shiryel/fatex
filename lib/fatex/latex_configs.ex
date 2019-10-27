@@ -106,12 +106,17 @@ defmodule Fatex.LatexConfigs do
       ...>      [template | _] = list_template_sections_from_step(step),
       ...>      {:ok, new_template} <- clone_template_to_section_type(template, "child"),
       ...>      true <- template.id != new_template,
-      ...>      true <- new_template.step_id == template.step_id,
+      ...>      true <- nil == template.step_id,
       ...>      true <- new_template.type == "child", do: :ok
       :ok
+
+  ## WARNING:
+    step_id must be nil, because the live_view load the roots with the relationship with step, and so if the step_id is given there will be a duplicate (a child and  a "root")
   """
   def clone_template_to_section_type(%Section{} = section, type) when type in ["root", "child", "template"] do
-    %Section{name: section.name, content: section.content, type: type, children: section.children, step_id: section.step_id}
+    # WARNING:
+    # step_id must be nil, because the live_view load the roots with the relationship with step, and so if the step_id is given there will be a duplicate (a child and  a "root")
+    %Section{name: section.name, content: section.content, type: type, children: section.children, step_id: nil}
     |> Repo.insert()
   end
 

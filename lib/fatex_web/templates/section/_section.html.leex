@@ -1,26 +1,35 @@
-<%= form_for @section, "#", [phx_change: :update_section], fn f -> %>
-  <%= hidden_input f, :id %>
-  <%= hidden_input f, :type %>
-
-  <section>
-    <div>
-      <%= label f, :name %>
-    </div>
-    <div>
-      <%= text_input f, :name %>
-      <%= error_tag f, :name %>
-    </div>
-  </section>
-
-  <section>
-    <div>
-      <%= label f, :content %>
-    </div>
-    <div>
-      <%= textarea f, :content %>
-      <%= error_tag f, :content %>
-    </div>
-  </section>
-<% end %>
-<%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append", label: "Adicionar") %>
-<%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append_child", label: "Adicionar como filho") %>
+<div class="box">
+  <%= form_for @section, "#", [phx_change: :update_section], fn f -> %>
+    <%= hidden_input f, :id %>
+    <%= hidden_input f, :type %>
+  
+    <section>
+      <div>
+        <%= label f, :name %>
+      </div>
+      <div>
+        <%= text_input f, :name %>
+        <%= error_tag f, :name %>
+      </div>
+    </section>
+  
+    <section>
+      <div>
+        <%= label f, :content %>
+      </div>
+      <div>
+        <%= textarea f, :content %>
+        <%= error_tag f, :content %>
+      </div>
+    </section>
+  <% end %>
+  <%= if @to_add do %>
+    <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append", label: "Adicionar", section: @section) %>
+    <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append_child", label: "Adicionar como filho", section: @section) %>
+  <% end %>
+  
+  <% childs = list_children_sections(@section.data) %>
+  <%= for child <- childs do %>
+    <%= render(__MODULE__, "_section.html", to_add: @to_add, section: child) %>
+  <% end %>
+</div>
