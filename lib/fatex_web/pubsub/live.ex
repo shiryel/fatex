@@ -7,7 +7,7 @@ defmodule FatexWeb.PubSub.Live do
 
   @doc """
   Subscribe to the to_add messages
-  These messages is send to a step id
+  These messages is received with a {:to_add, template_id}
   """
   def sub_to_add(step_id) do
     PubSub.subscribe(Fatex.PubSub, "#{step_id}:to_add")
@@ -19,5 +19,21 @@ defmodule FatexWeb.PubSub.Live do
   """
   def broad_to_add(step_id, template_id) do
     PubSub.broadcast(Fatex.PubSub, "#{step_id}:to_add", {:to_add, template_id})
+  end
+
+  @doc """
+  Subscribe to the render messages
+  These messages is received with a {:render, model_id}
+  """
+  def sub_render() do
+    PubSub.subscribe(Fatex.PubSub, "render")
+  end
+
+  @doc """
+  Broadcast to the render messages
+  These messages is send to a module to render the pdf of the latex in the steps of the model id
+  """
+  def broad_render(model_id) do
+    PubSub.broadcast(Fatex.PubSub, "render", {:render, model_id})
   end
 end

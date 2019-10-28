@@ -13,4 +13,5 @@
   <article class="column">
     <%= live_render(@socket,  FatexWeb.StepLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
   </article>
+  <button phx-click="render" class="column button">visualizar</button>
 </section>

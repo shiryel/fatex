@@ -14,13 +14,22 @@ defmodule FatexWeb.ModelLive do
     model = LatexConfigs.get_model(model_id)
     steps = LatexConfigs.list_steps_from_model(model)
 
-    {:noreply, assign(socket, steps: steps, step_choosed: nil)}
+    {:noreply, assign(socket, steps: steps, step_choosed: nil, model_id: model_id)}
   end
+
+  ##########
+  # EVENTS #
+  ##########
 
   def handle_event("choose_step", %{"step_id" => step_id}, socket) do
     step = LatexConfigs.get_step(step_id)
 
     {:noreply, update(socket, :step_choosed, fn _ -> step.id end)}
+  end
+
+  def handle_event("render", _values, socket) do
+    PubSub.broad_render(socket.assigns.model_id)
+    {:noreply, socket} 
   end
 
 end

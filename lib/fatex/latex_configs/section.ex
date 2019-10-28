@@ -6,6 +6,8 @@ defmodule Fatex.LatexConfigs.Section do
   schema "sections" do
     field :name, :string
     field :content, :string
+    field :latex_start, :string, default: ""
+    field :latex_end, :string, default: ""
 
     # root | child | template
     field :type, :string

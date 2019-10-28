@@ -11,7 +11,8 @@ defmodule Fatex.Application do
       # Start the Ecto repository
       Fatex.Repo,
       # Start the endpoint when the application starts
-      FatexWeb.Endpoint
+      FatexWeb.Endpoint,
+      Render
       # Starts a worker by calling: Fatex.Worker.start_link(arg)
       # {Fatex.Worker, arg},
     ]

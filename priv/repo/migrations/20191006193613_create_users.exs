@@ -32,6 +32,10 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
       add :name, :string
       add :content, :string
 
+      # latex to add on start and end of the content
+      add :latex_start, :string
+      add :latex_end, :string
+
       # used by the code to change the behavior of the content
       add :type, :string
 
