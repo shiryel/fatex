@@ -23,6 +23,9 @@
       </div>
     </section>
   <% end %>
+  <%= if @section.data.type != "root" do %>
+    <button phx-click="remove" phx-value-section_id="<%= @section.data.id %>" class="column button"> X </button>
+  <% end %>
   <%= if @to_add do %>
     <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append", label: "Adicionar", section: @section) %>
     <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append_child", label: "Adicionar como filho", section: @section) %>

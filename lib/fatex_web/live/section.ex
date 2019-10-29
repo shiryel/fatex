@@ -45,6 +45,16 @@ defmodule FatexWeb.SectionLive do
     {:noreply, socket}
   end
 
+  def handle_event("remove", %{"section_id" => section_id}, socket) do
+    LatexConfigs.get_section(section_id)
+    |> LatexConfigs.delete_section()
+
+    # TODO: spawn screen to confirm delete
+
+    # FIXME: find another way to reflesh current view
+    {:stop, socket}
+  end
+
   def handle_event("append_child", %{"section_id" => section_id, "to_add" => to_add_id}, socket) do
     this_section = LatexConfigs.get_section(section_id)
     template = LatexConfigs.get_section(to_add_id)
