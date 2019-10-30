@@ -8,16 +8,23 @@ defmodule FatexWeb.SectionLive do
     FatexWeb.SectionView.render("index.html", assigns)
   end
 
-  def mount(%{root_section_id: id, step_id: step_id} = _session, socket) do
+  def mount(%{section_id: id, step_id: step_id} = _session, socket) do
     if connected?(socket) do
       PubSub.sub_to_add(step_id)
     end
 
-    root_section =
+    section =
       LatexConfigs.get_section(id)
-      |> LatexConfigs.change_section()
+      |> load_children_sections()
 
-    {:ok, assign(socket, section: root_section, to_add: nil, step_id: step_id)}
+    {:ok, assign(socket, section: section, to_add: nil, step_id: step_id)}
+  end
+
+  defp load_children_sections(father) do
+    children = 
+      LatexConfigs.list_section_children(father)
+        |> Enum.map(fn f -> load_children_sections(f) end)
+    %{father | children: children}
   end
 
   ####################
@@ -25,7 +32,11 @@ defmodule FatexWeb.SectionLive do
   ####################
 
   def handle_info({:to_add, section_id}, socket) do
-    {:noreply, assign(socket, to_add: section_id, section: socket.assigns.section)}
+    if socket.assigns.to_add do
+      {:noreply, assign(socket, to_add: nil, section: socket.assigns.section)}
+    else
+      {:noreply, assign(socket, to_add: section_id, section: socket.assigns.section)}
+    end
   end
 
   # ERROR HANDLER
@@ -51,8 +62,11 @@ defmodule FatexWeb.SectionLive do
 
     # TODO: spawn screen to confirm delete
 
-    # FIXME: find another way to reflesh current view
-    {:stop, socket}
+    section =
+      LatexConfigs.get_section(socket.assigns.section.id)
+      |> load_children_sections()
+
+    {:noreply, assign(socket, section: section)}
   end
 
   def handle_event("append_child", %{"section_id" => section_id, "to_add" => to_add_id}, socket) do
@@ -62,8 +76,12 @@ defmodule FatexWeb.SectionLive do
     {:ok, new_section} = LatexConfigs.clone_template_to_section_type(template, "child")
 
     LatexConfigs.section_append_child(this_section, new_section)
-    # FIXME: find another way to reflesh current view
-    {:stop, socket}
+
+    section =
+      LatexConfigs.get_section(socket.assigns.section.id)
+      |> load_children_sections()
+
+    {:noreply, assign(socket, section: section, to_add: nil)}
   end
 
   def handle_event("append", %{"section_id" => section_id, "to_add" => to_add_id}, socket) do
@@ -73,8 +91,12 @@ defmodule FatexWeb.SectionLive do
     {:ok, new_section} = LatexConfigs.clone_template_to_section_type(template, "child")
 
     LatexConfigs.section_append(this_section, new_section)
-    # FIXME: find another way to reflesh current view
-    {:stop, socket}
+
+    section =
+      LatexConfigs.get_section(socket.assigns.section.id)
+      |> load_children_sections()
+
+    {:noreply, assign(socket, section: section, to_add: nil)}
   end
 
   def handle_event("prepend", %{"section_id" => section_id, "to_add" => to_add_id}, socket) do
@@ -84,8 +106,12 @@ defmodule FatexWeb.SectionLive do
     {:ok, new_section} = LatexConfigs.clone_template_to_section_type(template, "child")
 
     LatexConfigs.section_prepend(this_section, new_section)
-    # FIXME: find another way to reflesh current view
-    {:stop, socket}
+
+    section =
+      LatexConfigs.get_section(socket.assigns.section.id)
+      |> load_children_sections()
+
+    {:noreply, assign(socket, section: section, to_add: nil)}
   end
 
   # ERROR HANDLER

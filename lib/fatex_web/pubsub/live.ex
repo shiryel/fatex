@@ -36,4 +36,21 @@ defmodule FatexWeb.PubSub.Live do
   def broad_render(model_id) do
     PubSub.broadcast(Fatex.PubSub, "render", {:render, model_id})
   end
+
+  @doc """
+  Subscribe to the reflesh messages
+  These messages is received with a :reflesh
+  """
+  def sub_reflesh(step_id) do
+    PubSub.subscribe(Fatex.PubSub, "#{step_id}:reflesh")
+  end
+
+  @doc """
+  Broadcast to the to_add messages
+  These messages is send to a step id 
+  """
+  def broad_reflesh(step_id) do
+    PubSub.broadcast(Fatex.PubSub, "#{step_id}:reflesh", :reflesh)
+  end
+
 end

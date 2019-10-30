@@ -18,11 +18,10 @@ defmodule FatexWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive
-    live "/model/:model_id", ModelLive do
-      live "/step", StepLive, session: [:step_id] 
-      live "/section", SectionLive, session: [:root_section_id]
-      live "/menu", MenuLive, session: [:step_id]
-    end
+    live "/model/:model_id", ModelLive 
+    live "/step", StepLive, session: [:step_id] 
+    live "/section", SectionLive, session: [:root_section_id]
+    live "/menu", MenuLive, session: [:step_id]
   end
 
   # Other scopes may use custom stacks.

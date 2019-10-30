@@ -1,38 +1,37 @@
-<div class="box">
-  <%= form_for @section, "#", [phx_change: :update_section], fn f -> %>
+<div class="card">
+  <% section = change_section(@section) %>
+  <%= form_for section, "#", [phx_change: :update_section], fn f -> %>
     <%= hidden_input f, :id %>
     <%= hidden_input f, :type %>
-  
-    <section>
-      <div>
-        <%= label f, :name %>
-      </div>
+
+    <section class="card-header">
       <div>
         <%= text_input f, :name %>
         <%= error_tag f, :name %>
+        <%= if @section.type != "root" do %>
+          <button phx-click="remove" phx-value-section_id="<%= @section.id %>" class="delete is-large"> X </button>
+        <% end %>
       </div>
     </section>
-  
-    <section>
-      <div>
-        <%= label f, :content %>
-      </div>
+
+    <section class="card-content">
       <div>
         <%= textarea f, :content %>
         <%= error_tag f, :content %>
       </div>
     </section>
+    
+    <section class="card-footer">
+      <%= if @to_add do %>
+        <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append", label: "Adicionar", section: section) %>
+        <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append_child", label: "Adicionar como filho", section: section) %>
+      <% end %>
+    </section>
   <% end %>
-  <%= if @section.data.type != "root" do %>
-    <button phx-click="remove" phx-value-section_id="<%= @section.data.id %>" class="column button"> X </button>
-  <% end %>
-  <%= if @to_add do %>
-    <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append", label: "Adicionar", section: @section) %>
-    <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append_child", label: "Adicionar como filho", section: @section) %>
-  <% end %>
-  
-  <% childs = list_children_sections(@section.data) %>
-  <%= for child <- childs do %>
+
+  <%= for child <- @section.children do %>
+    <div class="box">
     <%= render(__MODULE__, "_section.html", to_add: @to_add, section: child) %>
+    </div>
   <% end %>
 </div>
