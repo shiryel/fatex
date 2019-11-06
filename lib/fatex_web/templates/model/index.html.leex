@@ -1,31 +1,29 @@
-<nav class="container is-fluid">
-  <div class="columns">
-  <div class="column is-10">
+<section class="menu">
+  <menu>
   <%= for step <- @steps do %>
     <button phx-click="choose_step" phx-value-step_id="<%= step.id %>" class="button is-primary is-light">
       <%= step.name %>
     </button>
   <% end %>
-  </div>
-  <div class="column is-2">
-    <button class="button is-primary">Login</button>
-  </div>
-  </div>
-</nav>
-<section class="columns has-background-light">
-  <menu class="column is-narrow">
-    <% # FIXME: The :rand.uniform is not ideal, but works %>
-    <div class="section">
-      <p>Adicionar:</p>
-      <%= live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
-    </div>
   </menu>
-  <article class="column">
-    <div class="box">
-      <%= live_render(@socket,  FatexWeb.StepLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
-    </div>
-  </article>
-  <div class="column">
+
+  <menu>
+    <button class="button is-primary">Login</button>
+  </menu>
+</section>
+
+<div class="writer-section">
+  <menu>
+    <% # FIXME: The :rand.uniform is not ideal, but works %>
+    <div>Adicionar</div>
+    <%= live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
+  </menu>
+
+  <section>
+    <%= live_render(@socket,  FatexWeb.StepLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
+  </section>
+
+  <div>
     <button phx-click="render" class="column button">visualizar</button>
   </div>
-</section>
+</div>
