@@ -4,7 +4,9 @@ defmodule Render do
   """
   use Task
   require Logger
+  alias Render.Core.{DataHandler, FileHandler}
 
+  # Started in the Fatex application
   def start_link(_) do
     Task.start_link(fn ->
       FatexWeb.PubSub.Live.sub_render()
@@ -14,10 +16,14 @@ defmodule Render do
 
   def init do
     receive do
-      model_id ->
-        Logger.info("received |#{inspect model_id}| on #{inspect __MODULE__}")
+      {:render, model_id} ->
+        data = DataHandler.concat_all(model_id)
+        FileHandler.init(model_id)
+        FileHandler.write(model_id, data)
+        FileHandler.make_latex(model_id)
         :ok
     end
+
     init()
   end
 end

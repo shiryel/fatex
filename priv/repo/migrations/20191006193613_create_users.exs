@@ -29,12 +29,14 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
     end
 
     create table(:sections) do
-      add :name, :string
-      add :content, :string
+      add :name, :text
+      add :content, :text
 
-      # latex to add on start and end of the content
-      add :latex_start, :string
-      add :latex_end, :string
+      # latex to add on start and end of the name and content
+      add :latex_name_start, :text
+      add :latex_name_end, :text
+      add :latex_start, :text
+      add :latex_end, :text
 
       # used by the code to change the behavior of the content
       add :type, :string
