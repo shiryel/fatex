@@ -17,6 +17,41 @@ defmodule Render.Core.FileHandler do
     File.mkdir("maker/#{unique_name}")
   end
 
+  @doc """
+  Path to the file
+  """
+  @spec get_path(integer | bitstring) :: bitstring
+  def get_path(unique_name) do
+    "maker/#{unique_name}/latex.pdf"
+  end
+
+  @doc """
+  Wait for the file creation
+  """
+  @spec wait_file_creation(integer | bitstring) :: any
+  def wait_file_creation(unique_name) do
+    unless File.exists?(get_path(unique_name)) 
+    && time_less_than_seven(unique_name) do
+      :timer.sleep(300)
+      wait_file_creation(unique_name)
+    end
+    :timer.sleep(100)
+  end
+
+  defp time_less_than_seven(unique_name) do
+    with {:ok, stat} <- File.stat(get_path(unique_name)),
+         {{year, mounth, day}, {hour, min, sec}} <- stat.mtime,
+         {:ok, date} <- Date.new(year, mounth, day),
+         {:ok, time} <- Time.new(hour, min, sec, 0),
+         true <- date == Date.utc_today(),
+         true <- Time.diff(Time.utc_now(), time) < 7 do
+      true
+    else
+      _ ->
+        false
+    end
+  end
+
   @spec write(integer | bitstring, bitstring | [bitstring]) :: :ok | {:error, atom}
   def write(unique_name, text) do
     File.write("maker/#{unique_name}/latex.tex", text, [:write])
