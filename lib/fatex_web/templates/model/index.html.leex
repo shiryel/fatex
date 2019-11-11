@@ -23,7 +23,5 @@
     <%= live_render(@socket,  FatexWeb.StepLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
   </section>
 
-  <div>
-    <button phx-click="render" class="column button">visualizar</button>
-  </div>
+  <%= live_render(@socket,  FatexWeb.RenderLive, session: %{model_id: @model_id}, id: :rand.uniform ) %>
 </div>

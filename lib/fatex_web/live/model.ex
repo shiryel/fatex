@@ -27,9 +27,4 @@ defmodule FatexWeb.ModelLive do
     {:noreply, update(socket, :step_choosed, fn _ -> step.id end)}
   end
 
-  def handle_event("render", _values, socket) do
-    PubSub.broad_render(socket.assigns.model_id)
-    {:noreply, socket} 
-  end
-
 end

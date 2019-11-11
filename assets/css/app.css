@@ -79,7 +79,7 @@ main{
   border-radius: 5px;
   background-color: #aab6fe;
   width: 43.2%;
-  overflow: auto;
+  overflow: hidden;
 }
 
 /******************

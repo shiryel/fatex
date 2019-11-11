@@ -17,6 +17,8 @@ defmodule FatexWeb.Router do
   scope "/", FatexWeb do
     pipe_through :browser
 
+    get "/file/:model_id/:render_id", FileController, :get
+
     live "/", HomeLive
     live "/model/:model_id", ModelLive 
     live "/step", StepLive, session: [:step_id] 
