@@ -87,13 +87,31 @@ defmodule Fatex.Accounts do
   """
   def update_user(%User{} = user, attrs) do
     user
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.update()
   end
 
+  @doc """
+  Verify the password using the Argon2
+
+
+  ## Examples
+
+      iex> a = Fatex.Accounts.list_users |> List.first
+      iex> Fatex.Accounts.verify_user a, "t"
+      false
+      iex> Fatex.Accounts.verify_user a, nil
+      false
+      iex> Fatex.Accounts.verify_user a, "test"
+      true
+  """
   def verify_user(%User{} = user, password) do
-    user
-    |> Argon2.check_pass(password)
+    case Argon2.check_pass(user, password) do
+      {:ok, _user} ->
+        true
+      {:error, _reason} ->
+        false
+    end
   end
 
   @doc """

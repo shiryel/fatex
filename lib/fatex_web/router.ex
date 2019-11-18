@@ -30,12 +30,15 @@ defmodule FatexWeb.Router do
     pipe_through :authenticate
 
     resources "/user", UserController, only: [:edit, :update]
-    resources "/login", LoginController, only: [:delete]
+    
+    # FIXME: dont find how to make a post thought the live_view
+    #resources "/login", LoginController, only: [:delete]
+    get "/login", LoginController, :delete
 
     get "/file/:model_id/:render_id", FileController, :get
 
     live "/", HomeLive
-    live "/model/:model_id", ModelLive 
+    live "/model/:model_id", ModelLive, session: [:user_id]
     live "/step", StepLive, session: [:step_id] 
     live "/section", SectionLive, session: [:root_section_id]
     live "/menu", MenuLive, session: [:step_id]
