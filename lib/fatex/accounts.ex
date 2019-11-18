@@ -37,6 +37,26 @@ defmodule Fatex.Accounts do
   def get_user(id), do: Repo.get(User, id)
 
   @doc """
+  Gets a single user with email info
+
+  ## Examples
+
+      iex> result = get_user_by_email("vinicius_molina@hotmail.com")
+      iex> with %Fatex.Accounts.User{} <- result, do: :ok
+      :ok
+
+      iex> get_user_by_email("haha")
+      nil
+  """
+  def get_user_by_email(email) do
+    Repo.all(
+      from u in User,
+        where: u.email == ^email
+    )
+    |> List.first()
+  end
+
+  @doc """
   Creates a user.
 
   ## Examples
@@ -51,7 +71,7 @@ defmodule Fatex.Accounts do
   """
   def create_user(attrs \\ %{}) do
     %User{}
-    |> User.changeset(attrs)
+    |> User.registration_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -69,6 +89,11 @@ defmodule Fatex.Accounts do
     user
     |> User.changeset(attrs)
     |> Repo.update()
+  end
+
+  def verify_user(%User{} = user, password) do
+    user
+    |> Argon2.check_pass(password)
   end
 
   @doc """
@@ -93,7 +118,15 @@ defmodule Fatex.Accounts do
   :ok
 
   """
+  def change_user() do
+    User.changeset(%User{}, %{})
+  end
+
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  def change_user(%User{} = user, params) do
+    User.changeset(user, params)
   end
 end

@@ -4,6 +4,7 @@ defmodule FatexWeb.PubSub.Live do
   """
 
   alias Phoenix.PubSub
+  require Logger
 
   @doc """
   Subscribe to the to_add messages
@@ -52,5 +53,4 @@ defmodule FatexWeb.PubSub.Live do
   def broad_reflesh(step_id) do
     PubSub.broadcast(Fatex.PubSub, "#{step_id}:reflesh", :reflesh)
   end
-
 end

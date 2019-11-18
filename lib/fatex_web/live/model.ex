@@ -11,10 +11,11 @@ defmodule FatexWeb.ModelLive do
   end
 
   def handle_params(_params = %{"model_id" => model_id}, _uri, socket) do
+    conn_params = get_connect_params(socket)
     model = LatexConfigs.get_model(model_id)
     steps = LatexConfigs.list_steps_from_model(model)
 
-    {:noreply, assign(socket, steps: steps, step_choosed: nil, model_id: model_id)}
+    {:noreply, assign(socket, steps: steps, step_choosed: nil, model_id: model_id, conn_params: conn_params)}
   end
 
   ##########

@@ -1,16 +1,3 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Fatex.Repo.insert!(%Fatex.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
-
-configuration = ~S"""
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Artigo segundo as normais mais atualizadas da ABNT
 % Adaptado do projeto ABNTeX2 (que nao esta totalmente sincronizada com as normas da ABNT)
@@ -46,27 +33,25 @@ configuration = ~S"""
 \begin{document}
 \selectlanguage{brazil} % Seleciona o idioma do documento
 \frenchspacing % Retira espaço extra obsoleto entre as frases.
-"""
-
-title_start = ~S"""
 \begin{center}
 %TITULO
   \uppercase{
     \bfseries{
-"""
 
-title_end = ~S"""
+Titulo
     }
   }
 	\vspace{12pt}
 \end{center}
-"""
 
-autor_start = ~S"""
-\begin{flushright}
-"""
 
-autors = ~S"""
+
+Insira aqui os autores Autores
+
+
+
+
+
 %AUTOR - Pode-se contar com infinitos autores   :)
 	Andrey Gonçalves\footnote{IFRN, andreygo20@gmail.com}
 	\\
@@ -74,15 +59,18 @@ autors = ~S"""
 	\\
 	Rafael dos Santos Borges\footnote{IFRN, rafael@fatecriopreto.edu.br}
 	\vspace{12pt}
-"""
 
-autor_end = ~S"""
-\end{flushright}
-"""
 
-# TODO: adicionar autores 
 
-resumo = ~S"""
+
+
+\begin{footnotesize}
+\SingleSpacing
+\noindent
+\small{\textbf{Resumo:}}
+\noindent
+\small
+
 A organização de documentos é uma forma primordial de facilitar a disseminação de conhecimento, 
 	atualmente são utilizadas diversas tecnologias para esta finalidade, principalmente aquelas que permitem o design visual. 
 	Segundo GROZA (2007), uma ferramenta para edição de texto de alta qualidade é o LaTeX, muito popular entre cientistas 
@@ -90,32 +78,25 @@ A organização de documentos é uma forma primordial de facilitar a disseminaç
 	conhecimento de suas funcionalidades, que por sua vez, é um pouco complexa e em certas ocasiões desmotiva um usuário a 
 	utilizar a mesma. Para tal, este trabalho visa fazer a utilização do design lógico do LaTeX com uma interface e uso mais 
 	intuitivos, como resolução deste problema.
-"""
 
-resumo_start = ~S"""
-\begin{footnotesize}
-\SingleSpacing
-\noindent
-\small{\textbf{Resumo:}}
-\noindent
-\small
-"""
-# TODO: add abstract
-    
-keywords = ~S"""
-Ambiente Gráfico, Praticidade e Aprimoramento de UX.
-"""
 
-keywords_start = ~S"""
-\noindent
-\textbf{Palavras-chave}: 
-"""
 
-keywords_end = ~S"""
-\end{footnotesize}
-"""
 
-introduction = ~S"""
+
+
+
+
+
+
+
+\textual
+\pagestyle{simple}
+\aliaspagestyle{chapter}{simple}
+
+\section{Introdução}
+\label{secIntroducao}
+\normalsize
+
 Desde que a humanidade começou a compartilhar e armazenar conhecimento em formas textuais, 
 	sempre foi necessário que ele estivesse organizado de forma adequada parafácil compreensão. 
 	Na atualidade são utilizadas ferramentas para facilitar este trabalho, principalmente as conhecidas 
@@ -128,43 +109,37 @@ O LaTeX é uma ferramenta que fornece um design lógico, ótimo para documentos 
 
 Diante deste cenário, o presente projeto busca permitir o uso do LaTeX para edição de texto de forma eficiente, 
 e voltada para usuários leigos.
-"""
 
-introduction_start = ~S"""
-\textual
-\pagestyle{simple}
-\aliaspagestyle{chapter}{simple}
 
-\section{Introdução}
-\label{secIntroducao}
-\normalsize
-"""
 
-justification = ~S"""
+
+
+\section{Justificativa}
+
   Levando em conta que segundo Davis e Walters (2011) a presença de indivíduos que desenvolvem documentos científicos 
 	vem sofrendo um grande aumento, a existência de uma plataforma para a edição de documentos complexos de forma 
 	eficiente pode trazer grandes benefícios para a comunidade como um todo. O LaTeX permite a escrita de tais documentos 
 	com uma formatação facilmente padronizável e distribuível por documentos de configuração, porém necessita de estudo 
 	prévio por parte do usuário para uma utilização efetiva.
-"""
 
-justification_start = ~S"""
-\section{Justificativa}
-"""
 
-objective = ~S"""
+
+
+
+\section{Objetivo}
+
 O objetivo deste projeto é desenvolver um editor LaTeX para a Fatec, que possua uma interface de usuário que seja simples, 
 	de fácil aprendizado e que mantenha a eficácia do LaTeX para organização de documentos.
 
 Como um possível adendo a este trabalho, é cogitado disponibilizar e integrar o sistema em duas plataformas diferentes: 
 	web e mobile, tendo ênfase, a web.
-"""
 
-objective_start = ~S"""
-\section{Objetivo}
-"""
 
-fundamentation = ~S"""
+
+
+
+\section{Fundamentação Teórica}
+
 TeX é um programa de tipografia e fórmulas matemáticas criado por Donal E. Knuth (DONALD, 1989). 
 	E conhecido por ser extremamente estável e multiplataforma (OETIKER et al., 2011).
 LaTeX é um pacote macro do TeX que permite a profissionais utilizarem layouts pré-definidos. 
@@ -177,13 +152,13 @@ Elm é uma linguagem funcional que compila pra Java Script. Compete com projetos
 Flutter é um conjunto de ferramentas, criado pela Google para o desenvolvimento de interfaces gráficas. 
 	Permite o desenvolvimento de programas nativos para dispositivos móveis, web e desktop sem a necessidade 
 	de reescrever o código exclusivamente para cada plataforma (FLUTTER. . ., 2019).
-"""
 
-fundamentation_start = ~S"""
-\section{Fundamentação Teórica}
-"""
 
-other_works = ~S"""
+
+
+
+\section{Trabalhos Similares}
+
 Considerado por muitos o melhor editor LaTeX existente, o TeXMarker se encontra disponível para Windows, 
 	MAC e Linux (onde mais é utilizado). Possuindo diversas funcionalidades (BRACHET, 2003).
 
@@ -202,13 +177,13 @@ Mais dois editores que ainda estão em crescimento na loja são o LawTex que vem
 	TEXPortal prometendo melhorias e novas funcionalidades, e o TeX Writer – LaTeX On the Go que é único dos 
 	aqui mencionados que possui apenas a versão paga, ambos possuem mais de 1000 downloads e notas médias de 3,5 e 3,7 
 	respectivamente na Google Play.
-"""
 
-other_works_start = ~S"""
-\section{Trabalhos Similares}
-"""
 
-metodology = ~S"""
+
+
+
+\section{Metodologia}
+
 Este trabalho será realizado de forma exploratória, sendo primeiramente planejado e desenvolvido um produto 
 	viável mínimo (MVP), utilizando os princípios do Scrum que visa trazer valor para o produto ao expô-lo de forma 
 	periódica ao público alvo (SUTHERLAND, 2016). O público alvo será inicialmente composto por pessoas inseridas no 
@@ -220,13 +195,13 @@ Este trabalho será realizado de forma exploratória, sendo primeiramente planej
 Para a realização deste projeto será utilizado como infraestrutura o Linux, com servidores distribuídos construídos 
 	com Elixir e as interfaces de usuário desenvolvidas com Flutter. Para realizar o armazenamento de dados de usuários 
 	será utilizado PostgreSQL ou Cassandra.
-"""
 
-metodology_start = ~S"""
-\section{Metodologia}
-"""
 
-plane = ~S"""
+
+
+
+\section{Plano de Trabalho}
+
 Atividade 1: levantamento bibliográfico: Identificação de livros e artigos que descrevem os assuntos tratados neste trabalho.
 
 Atividade 2: coleta de dados: Identificação das tags utilizadas no LaTeX, verificando casos isolados e regras 
@@ -242,13 +217,13 @@ Atividade 5: integração com banco de dados: Será utilizado como banco de dado
 
 Atividade 6: Atualização de visualização em real-time: Será implementado a atualização de visualização formatada 
 	do texto através do sistema de channels do Phoenix.
-"""
 
-plane_start = ~S"""
-\section{Plano de Trabalho}
-"""
 
-schedule = ~S"""
+
+
+
+\section{Cronograma}
+
 \begin{table}[h]
 \centering
 \caption{Cronograma}
@@ -264,174 +239,31 @@ Atividade 5 &   &   &   & X & X &   \\
 Atividade 6 &   &   &   &   & X & X 
 \end{tabular}
 \end{table}
-"""
 
-schedule_start = ~S"""
-\section{Cronograma}
-"""
 
-# TODO: Testes e Resultados
 
-final_considerations = ~S"""
-Considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais.
-"""
 
-final_considerations_start = ~S"""
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Considerações Finais}
-"""
 
-final_considerations_end = ~S"""
+Considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais considera\c c\~oes finais.
+
 \renewcommand{\bibsection}{\section*{REFERÊNCIAS BIBLIOGRÁFICAS}}
 \bibliographystyle{abntex2-alf}
 \bibliography{Referencias}
 \end{document}
-"""
 
-alias Fatex.Repo
-alias Fatex.LatexConfigs.{Model, Step, Section}
-alias Fatex.Accounts.User
 
-# Em tabelas root o nome é ignorado caso latex_name_start ou latex_name_end não for contiverem algo, em tabelas filhas o nome é usado com o begin{NAME} caso não houver os dados acima
 
-# TODO: adicionar no meno possibilidade de imagens
-#%Section{
-#  name: "Image",
-#  content: "",
-#  type: "template"
-#}
-
-Repo.insert!(%User{
-  name: "vinicius",
-  email: "vinicius_molina@hotmail.com",
-  password_hash: Argon2.add_hash("test")[:password_hash],
-  models: [
-    %Model{
-      name: "default",
-      steps: [
-        %Step{
-          name: "Informações",
-          sections: [
-            %Section{
-              name: "Titulo",
-              content: "Insira aqui os autores Autores",
-              type: "root",
-              latex_name_start: configuration <> title_start,
-              latex_name_end: title_end
-            },
-            %Section{
-              name: "Autores",
-              content: autors, 
-              type: "root"
-            },
-          ]
-        },
-
-        %Step{
-          name: "Resumo",
-          sections: [
-            %Section{
-              name: "Resumo",
-              content: resumo,
-              type: "root",
-              latex_start: resumo_start
-            },
-            %Section{
-              name: "Abstract",
-              content: "",
-              type: "root"
-            }
-          ]
-        },
-
-        %Step{
-          name: "Introdução",
-          sections: [
-            %Section{
-              name: "Introdução",
-              content: introduction,
-              latex_start: introduction_start,
-              type: "root"
-            },
-            %Section{
-              name: "Justificativa",
-              content: justification,
-              latex_start: justification_start,
-              type: "root"
-            },
-            %Section{
-              name: "Objetivo",
-              content: objective,
-              latex_start: objective_start,
-              type: "root"
-            },
-            %Section{
-              name: "Fundamentação Teorica",
-              content: fundamentation,
-              latex_start: fundamentation_start,
-              type: "root"
-            },
-            %Section{
-              name: "Trabalhos Similares",
-              content: other_works,
-              latex_start: other_works_start,
-              type: "root"
-            }
-          ]
-        },
-
-        %Step{
-          name: "Desenvolvimento",
-          sections: [
-            %Section{
-              name: "Metodologia",
-              content: metodology,
-              latex_start: metodology_start,
-              type: "root"
-            },
-            %Section{
-              name: "Plano de Trabalho",
-              content: plane,
-              latex_start: plane_start,
-              type: "root"
-            },
-            %Section{
-              name: "Cronograma",
-              content: schedule,
-              latex_start: schedule_start,
-              type: "root"
-            }
-          ]
-        },
-
-        %Step{
-          name: "Testes e Resultados",
-          sections: [
-            %Section{
-              name: "Testes",
-              content: "",
-              type: "root"
-            },
-            %Section{
-              name: "Resultados",
-              content: "",
-              type: "root"
-            }
-          ]
-        },
-
-        %Step{
-          name: "Discussão e Conclusão",
-          sections: [
-            %Section{
-              name: "Conciderações Finais",
-              content: final_considerations,
-              latex_start: final_considerations_start,
-              latex_end: final_considerations_end,
-              type: "root"
-            }
-          ]
-        },
-      ]
-    }
-  ]
-})

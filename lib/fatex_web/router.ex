@@ -10,12 +10,27 @@ defmodule FatexWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :authenticate do
+    plug FatexWeb.Auth
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", FatexWeb do
     pipe_through :browser
+
+    resources "/user", UserController, only: [:new, :create]
+    resources "/login", LoginController, only: [:new, :create]
+  end
+
+  scope "/", FatexWeb do
+    pipe_through :browser
+    pipe_through :authenticate
+
+    resources "/user", UserController, only: [:edit, :update]
+    resources "/login", LoginController, only: [:delete]
 
     get "/file/:model_id/:render_id", FileController, :get
 
