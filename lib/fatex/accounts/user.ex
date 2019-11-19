@@ -2,6 +2,7 @@ defmodule Fatex.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Fatex.LatexConfigs.Model
+  alias Fatex.Accouns.SharedModel
 
   schema "users" do
     field :email, :string
@@ -10,6 +11,7 @@ defmodule Fatex.Accounts.User do
     field :password_hash, :string
 
     has_many(:models, Model) 
+    has_many(:shared_models, SharedModel) 
     timestamps()
   end
 

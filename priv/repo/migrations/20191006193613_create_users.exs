@@ -49,5 +49,13 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
+    # Table for define who can access the model 
+    # (excluding the use who created the model,
+    # he is in the models table)
+    create table(:shared_models) do
+      add :user_id, references(:users)
+      add :model_id, references(:models)
+    end
+
   end
 end

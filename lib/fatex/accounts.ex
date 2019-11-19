@@ -5,8 +5,11 @@ defmodule Fatex.Accounts do
 
   import Ecto.Query, warn: false
   alias Fatex.Repo
-
   alias Fatex.Accounts.User
+  
+  #########
+  # Users #
+  #########
 
   @doc """
   Returns the list of users.
@@ -146,5 +149,80 @@ defmodule Fatex.Accounts do
 
   def change_user(%User{} = user, params) do
     User.changeset(user, params)
+  end
+
+  #################
+  # Shared Models #
+  #################
+
+  @doc """
+  List all users who a module is shared with
+  This checks if he model is from the user, for use on controller
+
+  ## Example:
+  
+      # with the initial seed 0 users a model shared with
+      iex> list_shared_model(1, 1)
+      []
+
+      # do not share with yourself
+      iex> share_model_with(1,1,1)
+      iex> list_shared_model(1, 1)
+      []
+
+      # share a model and list the users who the model is shared
+      iex> share_model_with(1,1,2)
+      iex> list_shared_model(1, 1)
+      [2]
+  """
+  def list_shared_model(user_id, model_id) do
+    # TODO
+    []
+  end
+
+
+  @doc """
+  Share a model with a user
+  This checks if he model is from the user, for use on controller
+
+  ## Examples:
+
+      # do not share with yourself
+      iex> share_model_with(1,1,1)
+      iex> list_shared_model(1, 1)
+      []
+
+      # share a model and list the users who the model is shared
+      iex> share_model_with(1,1,2)
+      iex> list_shared_model(1, 1)
+      [2]
+  """
+  def share_model_with(user_id, model_id, shared_user_id) do
+    # TODO
+    []
+  end
+
+  @doc """
+  Unshare a model with a user
+  This checks if he model is from the user, for use on controller
+
+  ## Examples:
+
+      # do not unshare with yourself
+      iex> unshare_model_with(1,1,1)
+      iex> list_shared_model(1, 1)
+      []
+
+      # share a model, list the users who the model is shared and unshare the model
+      iex> share_model_with(1,1,2)
+      iex> list_shared_model(1, 1)
+      [2]
+      iex> unshare_model_with(1,1,2)
+      iex> list_shared_model(1, 1)
+      []
+  """
+  def unshare_model_with(user_id, model_id, shared_user_id) do
+    # TODO
+    []
   end
 end
