@@ -299,7 +299,6 @@ alias Fatex.Accounts.User
 #  content: "",
 #  type: "template"
 #}
-
 Repo.insert!(%User{
   name: "vinicius",
   email: "vinicius_molina@hotmail.com",
@@ -435,3 +434,12 @@ Repo.insert!(%User{
     }
   ]
 })
+
+# Second user for tests
+Repo.insert!(%User{
+  name: "vinicius2",
+  email: "vinicius_m@hotmail.com",
+  password_hash: Argon2.add_hash("test")[:password_hash],
+  models: []
+})
+

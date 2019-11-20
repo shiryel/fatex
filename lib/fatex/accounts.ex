@@ -6,7 +6,9 @@ defmodule Fatex.Accounts do
   import Ecto.Query, warn: false
   alias Fatex.Repo
   alias Fatex.Accounts.User
-  
+  alias Fatex.Accounts.SharedModel
+  alias Fatex.LatexConfigs.Model
+
   #########
   # Users #
   #########
@@ -112,6 +114,7 @@ defmodule Fatex.Accounts do
     case Argon2.check_pass(user, password) do
       {:ok, _user} ->
         true
+
       {:error, _reason} ->
         false
     end
@@ -160,7 +163,7 @@ defmodule Fatex.Accounts do
   This checks if he model is from the user, for use on controller
 
   ## Example:
-  
+
       # with the initial seed 0 users a model shared with
       iex> list_shared_model(1, 1)
       []
@@ -176,10 +179,15 @@ defmodule Fatex.Accounts do
       [2]
   """
   def list_shared_model(user_id, model_id) do
-    # TODO
-    []
+    if is_model_from_user?(model_id, user_id) do
+      Repo.all(
+        from s in SharedModel,
+          where: s.model_id == ^model_id
+      )
+    else
+      []
+    end
   end
-
 
   @doc """
   Share a model with a user
@@ -197,10 +205,15 @@ defmodule Fatex.Accounts do
       iex> list_shared_model(1, 1)
       [2]
   """
-  def share_model_with(user_id, model_id, shared_user_id) do
-    # TODO
-    []
+  def share_model_with(user_id, model_id, shared_user_id) when user_id != shared_user_id do
+    if is_model_from_user?(model_id, user_id) do
+      Repo.insert(%SharedModel{
+        user_id: shared_user_id,
+        model_id: model_id
+      })
+    end
   end
+  def share_model_with(_,_,_), do: :ok
 
   @doc """
   Unshare a model with a user
@@ -221,8 +234,44 @@ defmodule Fatex.Accounts do
       iex> list_shared_model(1, 1)
       []
   """
-  def unshare_model_with(user_id, model_id, shared_user_id) do
-    # TODO
-    []
+  def unshare_model_with(user_id, model_id, shared_user_id) when user_id != shared_user_id do
+    shared =
+      if is_model_from_user?(model_id, user_id) do
+        Repo.one(
+          from s in SharedModel,
+            where: s.user_id == ^shared_user_id,
+            where: s.model_id == ^model_id
+        )
+      else
+        false
+      end
+
+    if shared do
+      Repo.delete(shared)
+    end
+  end
+  def unshare_model_with(_,_,_), do: :ok
+
+  defp is_model_from_user?(model_id, user_id) do
+    model =
+      Repo.one(
+        from m in Model,
+          where: m.id == ^model_id,
+          where: m.user_id == ^user_id
+      )
+
+    case model do
+      nil ->
+        false
+
+      [] ->
+        false
+
+      false ->
+        false
+
+      _ ->
+        true
+    end
   end
 end

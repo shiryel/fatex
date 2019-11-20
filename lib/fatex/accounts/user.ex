@@ -2,7 +2,7 @@ defmodule Fatex.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Fatex.LatexConfigs.Model
-  alias Fatex.Accouns.SharedModel
+  alias Fatex.Accounts.SharedModel
 
   schema "users" do
     field :email, :string

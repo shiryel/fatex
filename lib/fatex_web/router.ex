@@ -37,6 +37,11 @@ defmodule FatexWeb.Router do
 
     get "/file/:model_id/:render_id", FileController, :get
 
+    # Share Controller
+    resources "/model_share", ModelShareController, only: [:show, :create]
+    # FIXME: Because it is 2 primary keys...
+    get "/model_share/:model_id/:shared_user_id", ModelShareController, :delete
+
     live "/", HomeLive
     live "/model/:model_id", ModelLive, session: [:user_id]
     live "/step", StepLive, session: [:step_id] 

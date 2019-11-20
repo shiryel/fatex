@@ -1,0 +1,20 @@
+<%= form_for :sharing, Routes.model_share_path(@conn, :create, []), [class: "model-share-create"], fn f -> %>
+  <%= hidden_input f, :model_id, value: @model_id %>
+  <label>
+    Email: <%= text_input f, :email_to_share %>
+  </label>
+
+  <%= submit "Compartilhar" %>
+<% end %>
+
+
+<section class="model-share-list">
+  <%= for user <- @shared_with_users do %>
+    <div>
+      <%= user.name %>
+      <%= user.email %>
+      <button onclick="location.href='<%= FatexWeb.Router.Helpers.model_share_path(@conn, :delete, @model_id, user.id) %>'" type="button">
+        Deletar
+      </div>
+  <% end %>
+</section>
