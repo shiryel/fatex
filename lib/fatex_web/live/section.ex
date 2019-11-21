@@ -17,7 +17,7 @@ defmodule FatexWeb.SectionLive do
       LatexConfigs.get_section(id)
       |> load_children_sections()
 
-    {:ok, assign(socket, section: section, to_add: nil, step_id: step_id)}
+    {:ok, assign(socket, section: section, to_add: nil, step_id: step_id, to_fix: nil)}
   end
 
   defp load_children_sections(father) do
@@ -38,7 +38,7 @@ defmodule FatexWeb.SectionLive do
       {:noreply, assign(socket, to_add: section_id, section: socket.assigns.section)}
     end
   end
-
+  #
   # ERROR HANDLER
   def handle_info(msg, socket) do
     Logger.warn("message dont handled: |#{inspect(msg)}| in |#{__MODULE__}|")
@@ -113,6 +113,15 @@ defmodule FatexWeb.SectionLive do
       |> load_children_sections()
 
     {:noreply, assign(socket, section: section, to_add: nil)}
+  end
+
+  def handle_event("to_fix", %{"section_id" => section_id}, socket) do
+    if socket.assigns.to_fix do
+      {:noreply, assign(socket, to_fix: nil, section: socket.assigns.section, to_add: nil)}
+    else
+      Logger.warn(section_id)
+      {:noreply, assign(socket, to_fix: section_id, section: socket.assigns.section, to_add: nil)}
+    end
   end
 
   # ERROR HANDLER

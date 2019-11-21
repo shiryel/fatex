@@ -31,6 +31,7 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
     create table(:sections) do
       add :name, :text
       add :content, :text
+      add :to_fix, :text
 
       # latex to add on start and end of the name and content
       add :latex_name_start, :text

@@ -7,17 +7,26 @@
   <%= text_input f, :name, class: "title" %>
   <%= error_tag f, :name %>
 
-  <%= textarea f, :content%>
+  <%= textarea f, :content %>
   <%= error_tag f, :content %>
+
+  <%= if @to_fix do %>
+    <%= textarea f, :to_fix, class: "to-fix" %>
+    <%= error_tag f, :to_fix %>
+  <% end %>
 
   <%= if @to_add do %>
     <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append", label: "Adicionar", section: section) %>
     <%= render(__MODULE__, "_section_button.html", to_add: @to_add, name: "append_child", label: "Adicionar como filho", section: section) %>
   <% end %>
+
   <%= if @section.type != "root" do %>
     <button phx-click="remove" phx-value-section_id="<%= @section.id %>" class="remove"> Remover </button>
   <% end %>
+
   </form>
+
+  <button phx-click="to_fix" phx-value-section_id="<%= @section.id %>" class="to-fix"> Revisar </button>
 
   <%= for child <- @section.children do %>
     <%= render(__MODULE__, "_section.html", to_add: @to_add, section: child) %>

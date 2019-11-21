@@ -4,8 +4,9 @@ defmodule Fatex.LatexConfigs.Section do
   alias Fatex.LatexConfigs.Step
 
   schema "sections" do
-    field :name, :string
-    field :content, :string
+    field :name, :string, default: ""
+    field :content, :string, default: ""
+    field :to_fix, :string, default: ""
     field :latex_name_start, :string, default: ""
     field :latex_name_end, :string, default: ""
     field :latex_start, :string, default: ""
@@ -23,7 +24,7 @@ defmodule Fatex.LatexConfigs.Section do
 
   def changeset(model, attrs) do
     model
-    |> cast(attrs, ~w[name content type children]a)
+    |> cast(attrs, ~w[name content to_fix type children]a)
     |> validate_required(~w[name type]a)
   end
   
