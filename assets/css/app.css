@@ -163,8 +163,38 @@ main{
   margin: 10px;
 }
 
-.user-form > button{
+.user-formk> button{
   margin: 10px;
+}
+
+/***************
+ * MODEL SHARE *
+ ***************/
+
+.model-share{
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.model-share > form{
+  padding: 20px;
+}
+
+.model-share > section {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.model-share > section > div{
+  display: flex;
+  justify-content: space-between;
+  width: 50vw;
+  padding-top: 10px;
 }
 
 /******************/

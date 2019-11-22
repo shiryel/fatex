@@ -1,6 +1,7 @@
 defmodule FatexWeb.ModelLive do
   use FatexWeb, :live
   require Logger
+  alias FatexWeb.Router.Helpers
 
   def render(assigns) do
     FatexWeb.ModelView.render("index.html", assigns)
@@ -28,15 +29,16 @@ defmodule FatexWeb.ModelLive do
   end
 
   def handle_event("logoff", _params, socket) do
-    {:stop, redirect(socket, to: FatexWeb.Router.Helpers.login_path(FatexWeb.Endpoint, :delete))}
+    {:stop, redirect(socket, to: Helpers.login_path(FatexWeb.Endpoint, :delete))}
   end
 
   def handle_event("account", _params, socket) do
     user_id = socket.assigns.user_id
-    {:stop, redirect(socket, to: FatexWeb.Router.Helpers.user_path(FatexWeb.Endpoint, :edit, user_id))}
+    {:stop, redirect(socket, to: Helpers.user_path(FatexWeb.Endpoint, :edit, user_id))}
   end
 
   def handle_event("share", _params, socket) do
-    {:noreply, socket}
+    model_id = socket.assigns.model_id
+    {:stop, redirect(socket, to: Helpers.model_share_path(FatexWeb.Endpoint, :show, model_id))}
   end
 end
