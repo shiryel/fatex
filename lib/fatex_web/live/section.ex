@@ -116,11 +116,15 @@ defmodule FatexWeb.SectionLive do
   end
 
   def handle_event("to_fix", %{"section_id" => section_id}, socket) do
+    section =
+      LatexConfigs.get_section(socket.assigns.section.id)
+      |> load_children_sections()
+
     if socket.assigns.to_fix do
-      {:noreply, assign(socket, to_fix: nil, section: socket.assigns.section, to_add: nil)}
+      {:noreply, assign(socket, to_fix: nil, section: section, to_add: nil)}
     else
       Logger.warn(section_id)
-      {:noreply, assign(socket, to_fix: section_id, section: socket.assigns.section, to_add: nil)}
+      {:noreply, assign(socket, to_fix: section_id, section: section, to_add: nil)}
     end
   end
 

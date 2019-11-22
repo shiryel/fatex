@@ -142,4 +142,29 @@ main{
   width: 80%;
 } 
 
+/*********
+ * LOGIN *
+ *********/
+
+.user-form{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.user-form > label{
+  margin: 10px;
+}
+
+.user-form > button{
+  margin: 10px;
+}
+
 /******************/

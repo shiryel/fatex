@@ -7,6 +7,7 @@
     <title>Fatex · Phoenix Framework</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script src="https://kit.fontawesome.com/07d952ec2b.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <main role="main">

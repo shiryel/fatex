@@ -1,15 +1,15 @@
-<%= form_for @changeset, Routes.user_path(@conn, :create), [class: "user-create"], fn f -> %>
+<%= form_for @changeset, Routes.user_path(@conn, :create), [class: "user-form"], fn f -> %>
   <label>
-    Name: <%= text_input f, :name %>
+    <%= text_input f, :name, placeholder: "Nome" %>
   </label>
 
   <label>
-    Email: <%= text_input f, :email %>
+    <%= text_input f, :email, placeholder: "Email" %>
   </label>
 
   <label>
-    Password: <%= password_input f, :password %>
+    <%= password_input f, :password, placeholder: "Senha" %>
   </label>
 
-  <%= submit "Submit" %>
+  <%= submit "Criar" %>
 <% end %>

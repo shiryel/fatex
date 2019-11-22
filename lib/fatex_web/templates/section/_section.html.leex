@@ -7,11 +7,11 @@
   <%= text_input f, :name, class: "title" %>
   <%= error_tag f, :name %>
 
-  <%= textarea f, :content %>
+  <%= textarea f, :content, onclick: "window.auto_grow(this)" %>
   <%= error_tag f, :content %>
 
   <%= if @to_fix do %>
-    <%= textarea f, :to_fix, class: "to-fix" %>
+    <%= textarea f, :to_fix, class: "to-fix", onclick: "window.auto_grow(this)"  %>
     <%= error_tag f, :to_fix %>
   <% end %>
 
@@ -26,7 +26,11 @@
 
   </form>
 
-  <button phx-click="to_fix" phx-value-section_id="<%= @section.id %>" class="to-fix"> Revisar </button>
+  <%= if String.length(@section.to_fix) > 0 do %>
+    <button phx-click="to_fix" phx-value-section_id="<%= @section.id %>" class="fas fa-comments"> </button>
+  <%= else %>
+    <button phx-click="to_fix" phx-value-section_id="<%= @section.id %>" class="far fa-comments"> </button>
+  <% end %>
 
   <%= for child <- @section.children do %>
     <%= render(__MODULE__, "_section.html", to_add: @to_add, section: child) %>

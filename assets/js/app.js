@@ -23,3 +23,10 @@ import LiveSocket from "phoenix_live_view"
 
 let liveSocket = new LiveSocket("/live", Socket)
 liveSocket.connect()
+
+// to resize the sections on base of the scrollHeight
+window.auto_grow = function auto_grow(element) {
+  console.log("ok")
+  element.style.height = "5px";
+  element.style.height = (element.scrollHeight)+"px";
+}

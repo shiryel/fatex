@@ -1,23 +1,23 @@
-<%= form_for @changeset, Routes.user_path(@conn, :update, @user_id), [class: "user-update"], fn f -> %>
+<%= form_for @changeset, Routes.user_path(@conn, :update, @user_id), [class: "user-form"], fn f -> %>
   <label>
-    Name: <%= text_input f, :name %>
+    <%= text_input f, :name, placeholder: "Nome" %>
   </label>
 
   <label>
-    Email: <%= text_input f, :email %>
+    <%= text_input f, :email, placeholder: "Email" %>
   </label>
 
   <label>
-    Senha anterior: <%= password_input f, :password %>
+    <%= password_input f, :password, placeholder: "Senha atual" %>
   </label>
 
   <label>
-    Nova senha: <%= password_input f, :new_password %>
+    <%= password_input f, :new_password, placeholder: "Nova senha" %>
   </label>
 
   <label>
-    Confirmar nova senha: <%= password_input f, :new_password_confirm %>
+    <%= password_input f, :new_password_confirm, placeholder: "Confirmar senha" %>
   </label>
 
-  <%= submit "Submit" %>
+  <%= submit "Atualizar" %>
 <% end %>
