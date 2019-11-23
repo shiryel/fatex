@@ -1,3 +1,15 @@
+/***********
+ * GENERAL *
+ ***********/
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 7px;
+}
+button:hover{
+  background-color: #bcbcbc;
+}
 /*************
  * MAIN BODY *
  *************/
@@ -18,18 +30,14 @@ main{
   display: flex;
   justify-content: space-between;
   width: 100vw;
-  height: 10vh;
+  height: 7vh;
 }
 
 .menu > menu > button{
   border: none;
   border-radius: 10px;
-  padding: 0.5rem;
-  margin: 1px;
-}
-
-.menu > menu > button:hover{
-  background-color: #bcbcbc;
+  padding: 0.55rem;
+  margin: 0.15rem;
 }
 
 /****************************
@@ -42,7 +50,7 @@ main{
   justify-content: space-between;
   background-color: #c7a4ff;
   width: 100vw;
-  height: 90vh;
+  height: 93vh;
   padding-top: 10px;
 }
 
@@ -53,6 +61,7 @@ main{
   border-radius: 5px;
   width-min: 10%;
   padding-left: 0;
+  width: 9.5%
 }
 
 .writer-section > menu > div{
@@ -71,15 +80,19 @@ main{
 
 .writer-section > section{
   border-radius: 5px;
-  width: 43.2%;
-  overflow: scroll;
+  width: 45%;
+  overflow: auto;
 }
 
 .writer-section > div{
   border-radius: 5px;
-  background-color: #aab6fe;
-  width: 43.2%;
+  width: 45%;
   overflow: hidden;
+}
+
+.writer-section > div > button{
+  margin: 2px;
+  margin-left: 5px;
 }
 
 /******************
@@ -106,7 +119,7 @@ main{
 .card > form > textarea{
   margin-top: 4px;
   margin-bottom: 5px;
-  width: 100%;
+  width: 99%;
   border-style: solid;
   border-width: 1px;
   border-color: #cfcfcf;
@@ -153,17 +166,36 @@ main{
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 130px;
+}
 
+.user-form > form {
   display: flex;
   text-align: center;
   flex-direction: column;
 }
 
-.user-form > label{
+.user-form > form > label{
   margin: 10px;
 }
 
-.user-formk> button{
+.user-form > form > label > input{
+  border: none;
+  border-bottom: 1px solid #888;
+  padding-top: 20px;
+  padding-left: 4px;
+  padding-bottom: 5px;
+  width: 15vw;
+  min-width: 250px;
+}
+
+.user-form > form > button{
+  margin: 10px;
+}
+
+.user-form > button {
+  float: right;
   margin: 10px;
 }
 

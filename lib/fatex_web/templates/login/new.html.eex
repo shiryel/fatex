@@ -1,4 +1,5 @@
-<%= form_for @changeset, Routes.login_path(@conn, :create), [class: "user-form"], fn f -> %>
+<section class="user-form">
+<%= form_for @changeset, Routes.login_path(@conn, :create), fn f -> %>
   <label>
     <%= text_input f, :email, placeholder: "Email" %>
   </label>
@@ -9,3 +10,7 @@
 
   <%= submit "Entrar" %>
 <% end %>
+  <button onclick="location.href='<%= FatexWeb.Router.Helpers.user_path(@conn, :new) %>'" type="button">
+     Nova conta
+  </button>
+</section>
