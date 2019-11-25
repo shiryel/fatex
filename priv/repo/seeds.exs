@@ -305,7 +305,8 @@ Repo.insert!(%User{
   password_hash: Argon2.add_hash("test")[:password_hash],
   models: [
     %Model{
-      name: "default",
+      name: "Fatec Rio Preto TG",
+      is_template: true,
       steps: [
         %Step{
           name: "Informações",

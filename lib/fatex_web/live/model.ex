@@ -1,4 +1,9 @@
 defmodule FatexWeb.ModelLive do
+  @moduledoc """
+  Show the choosed Model for the user
+  Initilized from `FatexWeb.HomeLive`
+  """
+
   use FatexWeb, :live
   require Logger
   alias FatexWeb.Router.Helpers
@@ -22,10 +27,17 @@ defmodule FatexWeb.ModelLive do
   # EVENTS #
   ##########
 
+  def handle_event("choose_step", %{"step_id" => ""}, socket) do
+    {:noreply, update(socket, :step_choosed, fn _ -> nil end)}
+  end
   def handle_event("choose_step", %{"step_id" => step_id}, socket) do
     step = LatexConfigs.get_step(step_id)
 
     {:noreply, update(socket, :step_choosed, fn _ -> step.id end)}
+  end
+
+  def handle_event("back_home", _params, socket) do
+    {:stop, redirect(socket, to: Routes.live_path(socket, FatexWeb.HomeLive))}
   end
 
   def handle_event("logoff", _params, socket) do

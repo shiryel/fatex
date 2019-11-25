@@ -7,6 +7,7 @@ defmodule FatexWeb.RenderLive do
   end
 
   def mount(%{model_id: model_id}, socket) do
+    PubSub.broad_render(model_id)
     {:ok, assign(socket, model_id: model_id, render: :rand.uniform())}
   end
 

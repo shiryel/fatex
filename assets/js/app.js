@@ -30,3 +30,10 @@ window.auto_grow = function auto_grow(element) {
   element.style.height = "5px";
   element.style.height = (element.scrollHeight)+"px";
 }
+
+// particles OwO
+import "particles.js"
+
+particlesJS.load('particles-js', '/particles.json', function() {
+  console.log('callback - particles.js config loaded');
+});

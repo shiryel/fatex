@@ -1,5 +1,8 @@
 <section class="user-form">
 <%= form_for @changeset, Routes.login_path(@conn, :create), fn f -> %>
+  <label class="title">
+    Fatex
+  </label>
   <label>
     <%= text_input f, :email, placeholder: "Email" %>
   </label>

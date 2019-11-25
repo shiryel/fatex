@@ -1,4 +1,8 @@
+<section class="user-form">
 <%= form_for @changeset, Routes.user_path(@conn, :create), [class: "user-form"], fn f -> %>
+  <label class="title">
+    Fatex
+  </label>
   <label>
     <%= text_input f, :name, placeholder: "Nome" %>
   </label>
@@ -12,4 +16,9 @@
   </label>
 
   <%= submit "Criar" %>
+
+  <button onclick="location.href='<%= FatexWeb.Router.Helpers.login_path(@conn, :new) %>'" type="button" class="button-warn">
+     Cancelar
+  </button>
 <% end %>
+</section>

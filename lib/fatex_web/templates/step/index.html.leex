@@ -1,3 +1,25 @@
 <%= for section <- @sections do %>
   <%= live_render(@socket,  FatexWeb.SectionLive, session: %{section_id: section.id, step_id: @step_id}, id: section.id) %>
 <% end %>
+
+<%= if length(@sections) == 0 do %>
+  <section class="step-nil">
+    <label>Tutorial</label>
+    <div>
+      <p> <b>Bem vindo ao Fatex</b>, um "wrapper" do Latex, porem sem o sofrimento, para tal, estes templates são transpilados para Latex, e em alguns casos voce irá precisar usar as seguintes Tags: </p>
+      <br>
+      <p> &ltN&gt seu texto aqui &lt\N&gt ==========> Para adicionar <b>negrito</b> </p>
+      <p> &ltI&gt seu texto aqui &lt\I&gt ==========> Para adicionar <b>italico</b> </p>
+      <p> &ltS&gt seu texto aqui &lt\S&gt ==========> Para adicionar <b>sublinhado</b> </p>
+      <p> &ltL&gt seu comando latex aqui &lt\L&gt ==> Para adicionar <b>Latex puro</b> </p>
+      <br>
+      <p> Para adicionar <b>tabelas</b>, use o Latex puro com este gerador de tabelas em Latex: <a href="https://www.tablesgenerator.com/" target="_blank">Gerador de Tabelas</a> 
+        <p> Para adicionar <b>imagens</b>, utilize o menu ao lado e aperte em "Inserir imagem", ele ira solicitar que voce exporte a imagem, e irá lhe dar o codigo para inserir a mesma (Latex puro) </p>
+        <p> <b>Selecione acima a etapa do trabalho que voce deseje realizar</b> </p>
+        <p> <b>Para visualizar o seu trabalho e baixar o PDF aperte em visualizar ao lado </b></p>
+        <p> <b>Todas alterações são salvas automaticamente (des que voce esteja conectado)</b></p>
+      <br>
+      <p> Para criar um novo template, favor realizar um pull request em <a href="https://github.com/vinicius-molina/fatex" target="_blank">Fatex GitHub</a>, um template pronto pode ser encontrado em /priv/repo/seeds.exs</p>
+    </div>
+  </section>
+<% end %>

@@ -1,5 +1,6 @@
 <section class="menu">
   <menu>
+  <button phx-click="choose_step" phx-value-step_id="<%= nil %>" class="button is-primary is-light">Tutorial</button>
   <%= for step <- @steps do %>
     <button phx-click="choose_step" phx-value-step_id="<%= step.id %>" class="button is-primary is-light">
       <%= step.name %>
@@ -8,6 +9,7 @@
   </menu>
 
   <menu>
+    <button phx-click="back_home" class="button is-primary is-light">Voltar</button>
     <button phx-click="share" class="button is-primary is-light">Compartilhar</button>
     <button phx-click="account" class="button is-primary is-light">Conta</button>
     <button phx-click="logoff" class="button is-primary is-light">Desconectar</button>
@@ -16,8 +18,8 @@
 
 <div class="writer-section">
   <menu>
+    <label>Adicionar</label>
     <% # FIXME: The :rand.uniform is not ideal, but works %>
-    <div>Adicionar</div>
     <%= live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
   </menu>
 

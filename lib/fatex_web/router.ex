@@ -42,8 +42,9 @@ defmodule FatexWeb.Router do
     # FIXME: Because it is 2 primary keys...
     get "/model_share/:model_id/:shared_user_id", ModelShareController, :delete
 
-    live "/", HomeLive
+    live "/", HomeLive, session: [:user_id]
     live "/model/:model_id", ModelLive, session: [:user_id]
+    live "/model-list/:user_id", ModelListLive, session: [:user_id]
     live "/step", StepLive, session: [:step_id] 
     live "/section", SectionLive, session: [:root_section_id]
     live "/menu", MenuLive, session: [:step_id]

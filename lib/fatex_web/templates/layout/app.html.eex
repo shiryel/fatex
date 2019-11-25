@@ -7,10 +7,13 @@
     <title>Fatex · Phoenix Framework</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Great+Vibes&display=swap"/>
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch|Cousine&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/07d952ec2b.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <main role="main">
+      <div id="particles-js"></div>
       <%= render @view_module, @view_template, assigns %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

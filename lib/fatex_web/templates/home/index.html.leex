@@ -1,5 +1,35 @@
-<%= for model <- @models do %>
-  <div class="box">
-    <button phx-click="go_to" phx-value-model_id=<%= model.id %>><%= model.name %></button>
-  </div>
-<% end %>
+<section class="home">
+
+  <section>
+    <menu>
+      <button phx-click="new" class="button-new"> Novo </button>
+      <button phx-click="to_delete" class="button-warn"> Excluir... </button>
+    </menu>
+    <menu class="menu-account">
+      <button phx-click="account" class="button is-primary is-light">Conta</button>
+      <button phx-click="logoff" class="button is-primary is-light">Desconectar</button>
+    </menu>
+  </section>
+
+  <%= if not @to_delete do %>
+    <div class="columns-name">
+      <label> Nome </label>
+      <label> Administrador </label>
+      <label> Ultima alteração </label>
+    </div>
+  <% end %>
+
+  <%= for model <- @models do %>
+    <div class="columns">
+      <button phx-click="go_to" phx-value-model_id=<%= model.id %>>
+        <label> <%= model.name %> </label>
+        <label> <%= model.user.name %> </label>
+        <label> <%= model.updated_at %> </label>
+      </button>
+      <%= if @to_delete do %>
+        <button phx-click="delete" phx-value-model_id=<%= model.id %> class="delete button-warn"> Excluir </button>
+      <% end %>
+    </div>
+  <% end %>
+
+</section>

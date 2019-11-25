@@ -16,14 +16,15 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
     #
     create table(:models) do
       add :name, :string
-      add :user_id, references(:users)
+      add :is_template, :boolean
+      add :user_id, references(:users), on_delete: :delete_all
 
       timestamps()
     end
 
     create table(:steps) do
       add :name, :string
-      add :model_id, references(:models)
+      add :model_id, references(:models), on_delete: :delete_all
 
       timestamps()
     end
@@ -45,7 +46,7 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
       # recursion os sections to mont on screen
       add :children, {:array, :integer}
 
-      add :step_id, references(:steps)
+      add :step_id, references(:steps), on_delete: :delete_all
 
       timestamps()
     end
@@ -54,8 +55,8 @@ defmodule Fatex.Repo.Migrations.CreateUsers do
     # (excluding the use who created the model,
     # he is in the models table)
     create table(:shared_models, primary_key: false) do
-      add :user_id, references(:users), primary_key: true
-      add :model_id, references(:models), primary_key: true
+      add :user_id, references(:users), primary_key: true, on_delete: :delete_all
+      add :model_id, references(:models), primary_key: true, on_delete: :delete_all
 
       timestamps()
     end

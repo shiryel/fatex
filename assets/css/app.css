@@ -10,6 +10,19 @@ button {
 button:hover{
   background-color: #bcbcbc;
 }
+.button-warn {
+  background-color: #ff616f;
+}
+.button-warn:hover{
+  background-color: #ff1744;
+}
+.button-new {
+  background-color: #64d8cb;
+}
+.button-new:hover{
+  background-color: #26a69a;
+}
+
 /*************
  * MAIN BODY *
  *************/
@@ -19,6 +32,138 @@ main{
   object-fit: contain;
   height: 100vh;
   width: 100vw;
+  background-color: #18a3b6;
+}
+
+
+/********
+ * HOME *
+ ********/
+
+.home {
+  margin-left: 10vw;
+  margin-right: 10vw;
+  padding: 20px;
+  height: 100vh;
+  background-color: white;
+}
+
+.home > section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.home > section > menu > button {
+  width: 150px;
+}
+
+.home > .columns-name {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.home > .columns {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.home > .columns > button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.home > .columns > button > label {
+  padding: 10px;
+}
+
+.home > .columns > .delete {
+  width: 10%;
+  min-width: 100px;
+  justify-content: center;
+}
+
+/**************
+ * MODEL LIST *
+ **************/
+
+.model-list {
+  margin-left: 10vw;
+  margin-right: 10vw;
+  padding: 20px;
+  height: 100vh;
+  background-color: white;
+}
+
+.model-list > menu > button {
+  width: 150px;
+}
+
+.model-list > label {
+  display: block;
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.model-list > form {
+  text-align: center;
+  padding: 20px;
+}
+
+.model-list > .columns-name {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.model-list > .columns {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.model-list > .columns > button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.model-list > .columns > button > label {
+  padding: 10px;
+}
+
+/************
+ * STEP NIL *
+ ************/
+
+.step-nil {
+  background-color: #f8fdff;
+  margin: 3px;
+  padding: 10px; 
+  border-radius: 5px;
+}
+
+.step-nil > label {
+  display: block;
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.step-nil > div > p {
+  font-size: 1rem;
+  font-family: 'Cousine', monospace;
 }
 
 /*************
@@ -26,7 +171,7 @@ main{
  *************/
 
 .menu{
-  background-color: #9575cd;
+  background-color: #18a3b6;
   display: flex;
   justify-content: space-between;
   width: 100vw;
@@ -48,7 +193,7 @@ main{
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  background-color: #c7a4ff;
+  background-color: #60d5e8;
   width: 100vw;
   height: 93vh;
   padding-top: 10px;
@@ -61,14 +206,17 @@ main{
   border-radius: 5px;
   width-min: 10%;
   padding-left: 0;
-  width: 9.5%
+  margin: 3px;
+  margin-left: 5px;
+  width: 9.5%;
+  background-color: #f8fdff;
 }
 
-.writer-section > menu > div{
-  border-radius: 5px;
-  background-color: #f8fdff;
+.writer-section > menu > label{
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: #cfcfcf;
   padding: 10px;
-  margin: 3px;
   width: fill;
 }
 
@@ -124,6 +272,7 @@ main{
   border-width: 1px;
   border-color: #cfcfcf;
   border-radius: 5px;
+  min-height: 100px;
 }
 
 .card > form > .remove{
@@ -167,13 +316,21 @@ main{
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 130px;
+  padding: 60px;
+  padding-top: 0px;
+  border-radius: 5px;
 }
 
 .user-form > form {
   display: flex;
   text-align: center;
   flex-direction: column;
+}
+
+.user-form > form > .title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 5rem;
+  margin: 0.5em;
 }
 
 .user-form > form > label{
@@ -207,26 +364,45 @@ main{
   display: flex;
   text-align: center;
   flex-direction: column;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 100%;
+  background-color: #f8fdff;
 }
 
-.model-share > form{
+.model-share > button {
+  width: 10rem;
+  margin: 10px;
+  float: left;
+}
+
+.model-share > form {
   padding: 20px;
+  border-bottom: 1px solid #888;
 }
 
-.model-share > section {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.model-share > section > div{
+.model-share > section > div {
   display: flex;
   justify-content: space-between;
-  width: 50vw;
-  padding-top: 10px;
+  margin: 12px;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #e8eaf6;
+  padding: 12px;
+  border-radius: 9px;
+  font-size: 1.1rem;
+}
+
+/****************
+ * PARTICLES.JS *
+ ****************/
+
+#particles-js {
+  background-color: #18a3b6;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 /******************/

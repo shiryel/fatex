@@ -1,0 +1,29 @@
+<section class="model-list">
+
+  <menu class="menu-account">
+    <button phx-click="back_home" class="button button-warn">Voltar</button>
+  </menu>
+
+  <label> Defina um nome e escolha um template </label>
+  <%= f = form_for :model_name, "", [phx_change: :validate_name] %>
+  <label> <%= text_input f, :name, placeholder: "Nome" %> </label>
+  </form>
+
+
+  <div class="columns-name">
+    <label> Nome </label>
+    <label> Administrador </label>
+    <label> Ultima alteração </label>
+  </div>
+
+  <%= for model <- @models do %>
+    <div class="columns">
+      <button phx-click="copy" phx-value-model_id=<%= model.id %>>
+        <label> <%= model.name %> </label>
+        <label> <%= model.user.name %> </label>
+        <label> <%= model.updated_at %> </label>
+      </button>
+    </div>
+  <% end %>
+
+</section>

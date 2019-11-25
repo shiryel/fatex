@@ -1,4 +1,4 @@
 <button phx-click="render" class="column button">visualizar</button>
 <object data="<%= "/file/#{@model_id}/#{@render}" %>" type="application/pdf" width="100%" height="100%">
-  <p>Alternative text - include a link <a href="<%= "/file/#{@model_id}" %>">to the PDF!</a></p>
+  <p> Tente novamente, caso seu navegador não possua suporte <a href="<%= "/file/#{@model_id}/{@render}" %>">aperte aqui!</a></p>
 </object>

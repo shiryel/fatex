@@ -1,4 +1,8 @@
-<%= form_for @changeset, Routes.user_path(@conn, :update, @user_id), [class: "user-form"], fn f -> %>
+<section class="user-form">
+<%= form_for @changeset, Routes.user_path(@conn, :update, @user_id), fn f -> %>
+  <label class="title">
+    Fatex
+  </label>
   <label>
     <%= text_input f, :name, placeholder: "Nome" %>
   </label>
@@ -21,3 +25,7 @@
 
   <%= submit "Atualizar" %>
 <% end %>
+  <button onclick="location.href='<%= FatexWeb.Router.Helpers.live_path(@conn, FatexWeb.HomeLive) %>'" type="button" class="button-warn">
+     Cancelar
+  </button>
+</section>

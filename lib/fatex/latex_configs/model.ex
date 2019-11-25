@@ -7,6 +7,7 @@ defmodule Fatex.LatexConfigs.Model do
 
   schema "models" do
     field :name, :string
+    field :is_template, :boolean, default: false
 
     belongs_to(:user, User)
     has_many(:steps, Step)
@@ -18,7 +19,7 @@ defmodule Fatex.LatexConfigs.Model do
   @doc false
   def changeset(model, attrs) do
     model
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, [:name, :is_template])
+    |> validate_required([:name, :is_template])
   end
 end
