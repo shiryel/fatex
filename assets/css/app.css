@@ -1,3 +1,9 @@
+/* COLORS:
+ * Base: #eeeeee
+ * Button: #e0e0e0
+ * Button-hover: #bcbcbc
+ */
+
 /***********
  * GENERAL *
  ***********/
@@ -6,6 +12,7 @@ button {
   border: none;
   border-radius: 10px;
   padding: 7px;
+  background-color: #e0e0e0;
 }
 button:hover{
   background-color: #bcbcbc;
@@ -41,11 +48,11 @@ main{
  ********/
 
 .home {
-  margin-left: 10vw;
-  margin-right: 10vw;
+  margin-left: 13vw;
+  margin-right: 13vw;
   padding: 20px;
   height: 100vh;
-  background-color: white;
+  background-color: #f8fdff;
 }
 
 .home > section {
@@ -68,6 +75,7 @@ main{
 .home > .columns {
   display: flex;
   justify-content: space-between;
+  padding: 7px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -94,11 +102,11 @@ main{
  **************/
 
 .model-list {
-  margin-left: 10vw;
-  margin-right: 10vw;
+  margin-left: 13vw;
+  margin-right: 13vw;
   padding: 20px;
   height: 100vh;
-  background-color: white;
+  background-color: #f8fdff;
 }
 
 .model-list > menu > button {
@@ -178,7 +186,7 @@ main{
   height: 7vh;
 }
 
-.menu > menu > button{
+.menu > menu{
   border: none;
   border-radius: 10px;
   padding: 0.55rem;
@@ -297,7 +305,7 @@ main{
 }
 
 .modal > .modal-content {
-  background-color: #fefefe;
+  background-color: #f8fdff;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -364,8 +372,8 @@ main{
   display: flex;
   text-align: center;
   flex-direction: column;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 13vw;
+  margin-right: 13vw;
   height: 100%;
   background-color: #f8fdff;
 }
