@@ -30,11 +30,12 @@ defmodule Render.Core.FileHandler do
   """
   @spec wait_file_creation(integer | bitstring) :: any
   def wait_file_creation(unique_name) do
-    unless File.exists?(get_path(unique_name)) 
-    && time_less_than_seven(unique_name) do
+    unless File.exists?(get_path(unique_name)) &&
+             time_less_than_seven(unique_name) do
       :timer.sleep(300)
       wait_file_creation(unique_name)
     end
+
     :timer.sleep(100)
   end
 
@@ -59,6 +60,8 @@ defmodule Render.Core.FileHandler do
 
   @spec make_latex(integer | bitstring) :: :ok
   def make_latex(unique_name) do
+    pwd = File.cwd!()
+    System.put_env("TEXINPUTS", "::#{pwd}/maker/#{unique_name}/")
     System.cmd("pdflatex", [
       "-interaction",
       "nonstopmode",
@@ -66,6 +69,7 @@ defmodule Render.Core.FileHandler do
       "maker/#{unique_name}/",
       "maker/#{unique_name}/latex.tex"
     ])
+
     :ok
   end
 

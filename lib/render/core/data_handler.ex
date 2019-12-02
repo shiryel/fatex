@@ -1,6 +1,8 @@
 defmodule Render.Core.DataHandler do
   @moduledoc """
   Handle the model's setps's sections data
+
+  The `Render.Core.Parser.exec/1` is used in the name and the content
   """
   alias Fatex.LatexConfigs
 
@@ -58,15 +60,24 @@ defmodule Render.Core.DataHandler do
           #{section.latex_name_end}
           """
         else
-          "begin{#{section.name}}"
+          name =
+            section.name
+            |> Render.Core.Parser.exec()
+
+          "begin{#{name}}"
         end
     end
   end
 
+  # get content, and apply the parser to section.content
   defp get_section_content(section) do
+    content = 
+      section.content
+      |> Render.Core.Parser.exec()
+
     """
     #{section.latex_start}
-    #{section.content}
+    #{content}
     #{section.latex_end}
     """
   end
