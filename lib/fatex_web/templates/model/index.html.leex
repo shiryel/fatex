@@ -1,11 +1,18 @@
 <section class="menu">
   <menu>
-  <button phx-click="choose_step" phx-value-step_id="<%= nil %>" class="button is-primary is-light">Tutorial</button>
-  <%= for step <- @steps do %>
-    <button phx-click="choose_step" phx-value-step_id="<%= step.id %>" class="button is-primary is-light">
-      <%= step.name %>
-    </button>
-  <% end %>
+    <button phx-click="choose_step" phx-value-step_id="<%= nil %>" class="button">Tutorial</button>
+
+    <section class="steps">
+      <button class="button">Etapas</button>
+      <div class="steps-drop">
+        <%= for step <- @steps do %>
+          <button phx-click="choose_step" phx-value-step_id="<%= step.id %>" class="button">
+            <%= step.name %>
+          </button>
+        <% end %>
+      </div>
+    </section>
+
   </menu>
 
   <menu>
