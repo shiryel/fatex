@@ -17,4 +17,5 @@ defmodule FatexWeb.StepLive do
 
     {:ok, assign(socket, sections: sections, step_id: id)}
   end
+
 end

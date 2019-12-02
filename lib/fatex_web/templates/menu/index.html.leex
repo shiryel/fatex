@@ -3,3 +3,12 @@
     <%= template.name %>
   </button>
 <% end %>
+
+<section class="add-image">
+  <%= f = form_for :add, "add-image", [multipart: true, phx_change: "add_image"] %>
+  <%= label f, :evidence_upload, "Statement of Attainment" %>
+  <%= file_input f, :evidence_upload, [class: "form-control", phx_hook: "evidence_upload", required: true, accept: "image/gif, image/jpeg, image/jpg, image/png, application/pdf"] %>
+  <%= error_tag f, :evidence_upload %>
+  <%= hidden_input f, :evidence_upload_base64, [phx_update: "ignore"] %>
+</section>
+

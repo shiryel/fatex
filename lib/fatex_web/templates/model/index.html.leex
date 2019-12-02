@@ -27,7 +27,7 @@
   <menu>
     <label>Adicionar</label>
     <% # FIXME: The :rand.uniform is not ideal, but works %>
-    <%= live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed}, id: :rand.uniform ) %>
+    <%= live_render(@socket,  FatexWeb.MenuLive, session: %{step_id: @step_choosed, model_id: @model_id}, id: :rand.uniform ) %>
   </menu>
 
   <section>

@@ -47,7 +47,7 @@ defmodule FatexWeb.Router do
     live "/model-list/:user_id", ModelListLive, session: [:user_id]
     live "/step", StepLive, session: [:step_id] 
     live "/section", SectionLive, session: [:root_section_id]
-    live "/menu", MenuLive, session: [:step_id]
+    live "/menu", MenuLive, session: [:step_id, :user_id]
   end
 
   # Other scopes may use custom stacks.
