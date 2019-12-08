@@ -2,8 +2,9 @@
 
 Fatex is a symple visual wrapper of the Latex, creating beautiful texts without all the complexity of the Latex.
 
-![Tela Login](/maker/1/figures/Tela Login - FATEX.jpeg)
-![Tela Inicial](/maker/1/figures/Tela Inicial do Projeto - FATEX.jpeg)
+![Tela Login](/maker/1/figures/Tela%20Login%20-%20FATEX.jpeg)
+
+![Tela Inicial](/maker/1/figures/Tela%20Inicial%20do%20Projeto%20-%20FATEX.jpeg)
 
 ## To Run
 
