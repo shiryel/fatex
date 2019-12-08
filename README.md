@@ -2,9 +2,11 @@
 
 Fatex is a symple visual wrapper of the Latex, creating beautiful texts without all the complexity of the Latex.
 
-![Tela Login](/maker/1/figures/Tela%20Login%20-%20FATEX.jpeg)
+![](/maker/1/figures/Tela%20Login%20-%20FATEX.jpeg)
 
-![Tela Inicial](/maker/1/figures/Tela%20Inicial%20do%20Projeto%20-%20FATEX.jpeg)
+![](/maker/1/figures/Tela%20Inicial%20do%20Projeto%20-%20FATEX.jpeg)
+
+![](/maker/1/figures/Tela%20Editar%20Projeto%20-%20FATEX.jpeg)
 
 ## To Run
 
@@ -14,6 +16,7 @@ Dependencies:
 
 To start the server:
 
+  * `sudo docker-compose up -d`
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
   * Install Node.js dependencies with `cd assets && npm install`
