@@ -14,8 +14,8 @@ LiveView:
 - Home -> Screen were the user create/delete/select the projects
 - Model -> Screen to do the Fatex work, controls the Menu, Step, Section and Render modules
 - ModelList -> Screen to create new Models based on other Models (defined in the database [seeds] as templates)
-- Menu -> Lateral menu to add images and sub-topics
 - Step -> Top menu to choose the step to work
+- Menu -> Lateral menu to add images and sub-sections
 - Section -> Sections of a Step
 - Render -> To render the PDF (gen a id to re-render)
 
