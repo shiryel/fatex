@@ -23,3 +23,11 @@ To start the server:
   * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+## TODO
+
+- [ ] Image Upload (upload on maker per user)
+- [ ] Make the PubSub per user
+- [ ] Fix bug when you click into the topic and the screen go up
+- [ ] Fix share between users
+- [ ] Docs the relationship of the modules
