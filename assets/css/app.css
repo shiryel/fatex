@@ -236,6 +236,8 @@ main{
   margin-left: 5px;
   width: 9.5%;
   background-color: #f8fdff;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .writer-section > menu > label{
@@ -267,6 +269,23 @@ main{
 .writer-section > div > button{
   margin: 2px;
   margin-left: 5px;
+}
+
+/**********
+ * UPLOAD *
+ **********/
+
+.add-upload {
+  border: 1px solid #ccc;
+}
+
+.add-upload > form > input{
+  padding: 10px;
+  color: transparent;
+}
+
+.list-upload {
+  border: 1px solid #ccc;
 }
 
 /******************

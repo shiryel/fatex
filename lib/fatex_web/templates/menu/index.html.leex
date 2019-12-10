@@ -4,11 +4,15 @@
   </button>
 <% end %>
 
-<section class="add-image">
-  <%= f = form_for :add, "add-image", [multipart: true, phx_change: "add_image"] %>
-  <%= label f, :evidence_upload, "Statement of Attainment" %>
-  <%= file_input f, :evidence_upload, [class: "form-control", phx_hook: "evidence_upload", required: true, accept: "image/gif, image/jpeg, image/jpg, image/png, application/pdf"] %>
-  <%= error_tag f, :evidence_upload %>
-  <%= hidden_input f, :evidence_upload_base64, [phx_update: "ignore"] %>
+<section class="add-upload">
+  <%= f = form_for :add_image, Routes.upload_path(@socket, :create, @model_id), [phx_update: "ignore", multipart: true, csrf_token: @token] %>
+  <%= file_input f, :upload, class: "form-control" %>
+  <%= submit "Upload", class: "button" %>
 </section>
 
+<%= for file <- @uploads do %>
+  <section class="list-upload">
+    <p> <%= file %> </p>
+    <button phx-click="remove_upload" phx-value-upload_name="<%= file %>"> Delete </button>
+  </section>
+<% end %>

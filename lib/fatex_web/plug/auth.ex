@@ -1,4 +1,4 @@
-defmodule FatexWeb.Auth do
+defmodule FatexWeb.Plug.Auth do
   use FatexWeb, :controller
   import Plug.Conn
   alias Fatex.Accounts
