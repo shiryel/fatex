@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/NixOS.org) (preloaded format=pdflatex 2019.11.11)  11 DEC 2019 15:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/NixOS.org) (preloaded format=pdflatex 2019.11.11)  11 DEC 2019 14:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**maker/1/latex.tex
-(./maker/1/latex.tex
+**maker/4/latex.tex
+(./maker/4/latex.tex
 LaTeX2e <2018-12-01>
 
 (/nix/store/12qz4w7rvpja8c989v291hkm1c4968wb-texlive-combined-full-2018/share/t
@@ -1080,7 +1080,7 @@ Sidefoothsep and sidefootwidth: 7pt and 42pt
 Sidefootvsep and sidefootheight: 14.5pt and 590.14995pt
 ******************************************************
 
-(maker/1//latex.aux)
+(maker/4//latex.aux)
 \openout1 = `latex.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
@@ -1264,7 +1264,7 @@ t line 235.
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.245 
-       </home/vinicius/github/fatex/maker/1/figures/Tela Editar Projeto - FATEX
+       </home/vinicius/github/fatex/maker/4/figures/Tela Editar Projeto - FATEX
 .jpeg>]
 
 LaTeX Warning: File `figures/PDF Render.jpg' not found on input line 254.
@@ -1290,7 +1290,7 @@ Package pdftex.def Info: figures/Tela Login - FATEX.jpeg  used on input line 26
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.268 
-       </home/vinicius/github/fatex/maker/1/figures/PDF Render.jpg>]
+       </home/vinicius/github/fatex/maker/4/figures/PDF Render.jpg>]
 
 LaTeX Warning: File `figures/Tela Criar Usuario - FATEX.jpeg' not found on inpu
 t line 272.
@@ -1323,8 +1323,8 @@ l.286
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.286 
-       </home/vinicius/github/fatex/maker/1/figures/Tela Login - FATEX.jpeg> </
-home/vinicius/github/fatex/maker/1/figures/Tela Criar Usuario - FATEX.jpeg>]
+       </home/vinicius/github/fatex/maker/4/figures/Tela Login - FATEX.jpeg> </
+home/vinicius/github/fatex/maker/4/figures/Tela Criar Usuario - FATEX.jpeg>]
 
 LaTeX Warning: File `figures/Tela Inicial - FATEX.jpeg' not found on input line
  294.
@@ -1357,8 +1357,8 @@ l.308
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.308 
-       </home/vinicius/github/fatex/maker/1/figures/Tela Editar Usuario - FATEX
-.jpeg> </home/vinicius/github/fatex/maker/1/figures/Tela Inicial - FATEX.jpeg>]
+       </home/vinicius/github/fatex/maker/4/figures/Tela Editar Usuario - FATEX
+.jpeg> </home/vinicius/github/fatex/maker/4/figures/Tela Inicial - FATEX.jpeg>]
 
 LaTeX Warning: File `figures/Tela Inicial do Projeto - FATEX.jpeg' not found on
  input line 316.
@@ -1390,8 +1390,8 @@ l.326
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.326 
-       </home/vinicius/github/fatex/maker/1/figures/Tela Adicionar Projeto - FA
-TEX.jpeg> </home/vinicius/github/fatex/maker/1/figures/Tela Inicial do Projeto 
+       </home/vinicius/github/fatex/maker/4/figures/Tela Adicionar Projeto - FA
+TEX.jpeg> </home/vinicius/github/fatex/maker/4/figures/Tela Inicial do Projeto 
 - FATEX.jpeg>]
 
 LaTeX Warning: File `figures/Tela Compartilhar Projeto - FATEX.jpeg' not found 
@@ -1416,7 +1416,7 @@ entifier (name{figure.0.10}) has been already used, duplicate ignored
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.359 \section
-              {Referências} </home/vinicius/github/fatex/maker/1/figures/Tela 
+              {Referências} </home/vinicius/github/fatex/maker/4/figures/Tela 
 Compartilhar Projeto - FATEX.jpeg>]
 ! Misplaced alignment tab character &.
 l.373 ...m/store/apps/details?id=verbosus.verbtex&
@@ -1469,7 +1469,7 @@ Missing character: There is no � in font zptmcm7t!
 [11]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 399.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 399.
- (maker/1//latex.aux)
+ (maker/4//latex.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 399.
 Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 399.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 399.
@@ -1499,7 +1499,7 @@ e/12qz4w7rvpja8c989v291hkm1c4968wb-texlive-combined-full-2018/share/texmf/fonts
 ve-combined-full-2018/share/texmf/fonts/type1/urw/times/utmr8a.pfb></nix/store/
 12qz4w7rvpja8c989v291hkm1c4968wb-texlive-combined-full-2018/share/texmf/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on maker/1//latex.pdf (11 pages, 1333262 bytes).
+Output written on maker/4//latex.pdf (11 pages, 1333262 bytes).
 PDF statistics:
  151 PDF objects out of 1000 (max. 8388607)
  120 compressed objects within 2 object streams

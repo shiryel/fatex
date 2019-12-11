@@ -10,7 +10,7 @@ defmodule FatexWeb.LoginController do
 
   # login
   def create(conn, %{"user" => %{"email" => email, "password" => pass}}) do
-    case FatexWeb.Auth.login_by_email_and_pass(conn, email, pass) do
+    case FatexWeb.Plug.Auth.login_by_email_and_pass(conn, email, pass) do
       {:ok, conn} ->
         conn
         |> put_flash(:info, "Welcome back!")
@@ -28,7 +28,7 @@ defmodule FatexWeb.LoginController do
   # logoff
   def delete(conn, _params) do
     conn
-    |> FatexWeb.Auth.logout()
+    |> FatexWeb.Plug.Auth.logout()
     |> redirect(to: "/login")
   end
 end

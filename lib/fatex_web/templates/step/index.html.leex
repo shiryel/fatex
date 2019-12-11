@@ -14,10 +14,20 @@
       <p> &ltL&gt seu comando latex aqui &lt/L&gt ==> Para adicionar <b>Latex puro</b> </p>
       <br>
       <p> Para adicionar <b>tabelas</b>, use o Latex puro com este gerador de tabelas em Latex: <a href="https://www.tablesgenerator.com/" target="_blank">Gerador de Tabelas</a> 
-        <p> Para adicionar <b>imagens</b>, utilize o menu ao lado e aperte em "Inserir imagem", ele ira solicitar que voce exporte a imagem, e irá lhe dar o codigo para inserir a mesma (Latex puro) </p>
+        <p> Para adicionar <b>imagens</b>, utilize o menu ao lado e aperte em "Inserir imagem", ele ira solicitar que voce exporte a imagem, para inserir a mesma use o codigo (em Latex puro) substituindo o nome da figure: </p>
+        <p>
+          &ltL&gt<br>
+          \begin{figure}[H]<br>
+          \centering<br>
+          \caption{PDF Renderizado em Tempo Real.}<br>
+          \includegraphics[width=15cm]{figures/PDF Render.jpg}<br>
+          \textual{Fonte: Dos Autores (2019).}<br>
+          \end{figure}<br>
+          &lt/L&gt
+        </p>
         <p> <b>Selecione acima a etapa do trabalho que voce deseje realizar</b> </p>
         <p> <b>Para visualizar o seu trabalho e baixar o PDF aperte em visualizar ao lado </b></p>
-        <p> <b>Todas alterações são salvas automaticamente (des que voce esteja conectado)</b></p>
+        <p> <b>Todas alterações são salvas automaticamente (desde que voce esteja conectado)</b></p>
       <br>
       <p> Para criar um novo template, favor realizar um pull request em <a href="https://github.com/vinicius-molina/fatex" target="_blank">Fatex GitHub</a>, um template pronto pode ser encontrado em /priv/repo/seeds.exs</p>
     </div>

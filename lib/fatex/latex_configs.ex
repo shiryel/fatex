@@ -4,7 +4,7 @@ defmodule Fatex.LatexConfigs do
   """
   import Ecto.Query, warn: false
   alias Fatex.Repo
-
+  alias Fatex.Accounts.SharedModel
   alias Fatex.LatexConfigs.{Model, Step, Section}
 
   @doc """
@@ -15,9 +15,17 @@ defmodule Fatex.LatexConfigs do
       :ok
   """
   def list_models_from_user(user) do
+    shared_with_me =
+      Repo.all(
+        from s in SharedModel,
+          where: s.user_id == ^user.id
+      )
+      |> Enum.map(& &1.model_id)
+
     Repo.all(
       from m in Model,
-        where: m.user_id == ^user.id
+        where: m.user_id == ^user.id,
+        or_where: m.id in ^shared_with_me
     )
   end
 
@@ -30,10 +38,9 @@ defmodule Fatex.LatexConfigs do
   def list_models_templates() do
     Repo.all(
       from m in Model,
-      where: m.is_template == true
+        where: m.is_template == true
     )
   end
-
 
   @doc """
   ## Examples:
@@ -88,9 +95,9 @@ defmodule Fatex.LatexConfigs do
   def list_sections_from_step(step) do
     Repo.all(
       from section in Section,
-      where: section.step_id == ^step.id,
-      where: section.type != "template",
-      order_by: [section.id]
+        where: section.step_id == ^step.id,
+        where: section.type != "template",
+        order_by: [section.id]
     )
   end
 
@@ -107,8 +114,8 @@ defmodule Fatex.LatexConfigs do
   def list_template_sections_from_step(step) do
     Repo.all(
       from section in Section,
-      where: section.step_id == ^step.id,
-      where: section.type == "template"
+        where: section.step_id == ^step.id,
+        where: section.type == "template"
     )
   end
 
@@ -128,24 +135,48 @@ defmodule Fatex.LatexConfigs do
   ## WARNING:
     step_id must be nil, because the live_view load the roots with the relationship with step, and so if the step_id is given there will be a duplicate (a child and  a "root")
   """
-  def clone_template_to_section_type(%Section{} = section, type) when type in ["root", "child", "template"] do
+  def clone_template_to_section_type(%Section{} = section, type)
+      when type in ["root", "child", "template"] do
     # WARNING:
     # step_id must be nil, because the live_view load the roots with the relationship with step, and so if the step_id is given there will be a duplicate (a child and  a "root")
     # TODO: verify if the children is correct
-    %Section{name: section.name, content: section.content, to_fix: section.to_fix, latex_name_start: section.latex_name_start, latex_name_end: section.latex_name_end, latex_start: section.latex_start, latex_end: section.latex_end, type: type, children: section.children, step_id: nil}
+    %Section{
+      name: section.name,
+      content: section.content,
+      to_fix: section.to_fix,
+      latex_name_start: section.latex_name_start,
+      latex_name_end: section.latex_name_end,
+      latex_start: section.latex_start,
+      latex_end: section.latex_end,
+      type: type,
+      children: section.children,
+      step_id: nil
+    }
     |> Repo.insert()
   end
 
   def clone_section(%Section{} = section, step_id) do
     # step_id of the children must be nil, because the live_view load the roots with the relationship with step, and so if the step_id is given there will be a duplicate (a child and  a "root")
     {:ok, _new_section} =
-      %Section{name: section.name, content: section.content, to_fix: section.to_fix, latex_name_start: section.latex_name_start, latex_name_end: section.latex_name_end, latex_start: section.latex_start, latex_end: section.latex_end, type: section.type, children: Enum.map(section.children, &clone_section(&1, nil)), step_id: step_id}
+      %Section{
+        name: section.name,
+        content: section.content,
+        to_fix: section.to_fix,
+        latex_name_start: section.latex_name_start,
+        latex_name_end: section.latex_name_end,
+        latex_start: section.latex_start,
+        latex_end: section.latex_end,
+        type: section.type,
+        children: Enum.map(section.children, &clone_section(&1, nil)),
+        step_id: step_id
+      }
       |> Repo.insert()
+
     :ok
   end
 
   def clone_step(step, model_id) do
-    {:ok, new_step} = 
+    {:ok, new_step} =
       %Step{name: step.name, model_id: model_id}
       |> Repo.insert()
 
@@ -159,13 +190,17 @@ defmodule Fatex.LatexConfigs do
 
   def clone_model_template(model_id, to_user_id, name) when is_integer(to_user_id) do
     # clone MODEL
-    {:ok, new_model} = 
+    {:ok, new_model} =
       %Model{name: name, user_id: to_user_id}
       |> Repo.insert()
 
+    File.mkdir_p!("maker/#{new_model.id}/figures")
+    File.cp_r("maker/#{model_id}/figures/", "maker/#{new_model.id}/figures/")
+
     # clone and update STEPS
-    old_model = get_model(model_id)
-            |> Repo.preload(:steps)
+    old_model =
+      get_model(model_id)
+      |> Repo.preload(:steps)
 
     Enum.each(old_model.steps, &clone_step(&1, new_model.id))
     :ok
@@ -336,8 +371,10 @@ defmodule Fatex.LatexConfigs do
       :ok
   """
   def delete_step(%Step{} = step) do
-    step = step 
-    |> Repo.preload(:sections)
+    step =
+      step
+      |> Repo.preload(:sections)
+
     Enum.each(step.sections, &delete_section/1)
     Repo.delete(step)
   end
@@ -350,12 +387,18 @@ defmodule Fatex.LatexConfigs do
       :ok
   """
   def delete_model(%Model{} = model) do
-    model = model
-    |> Repo.preload(:steps)
-    |> Repo.preload(:shared_models)
-    
+    model =
+      model
+      |> Repo.preload(:steps)
+      |> Repo.preload(:shared_models)
+
     Enum.each(model.steps, &delete_step/1)
-    Enum.each(model.shared_models, &Fatex.Accounts.unshare_model_with(model.user_id, &1.model_id, &1.user_id))
+
+    Enum.each(
+      model.shared_models,
+      &Fatex.Accounts.unshare_model_with(model.user_id, &1.model_id, &1.user_id)
+    )
+
     Repo.delete(model)
   end
 end
