@@ -42,7 +42,7 @@ To start the server:
   * Install Node.js dependencies with `cd assets && npm install`
   * Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:4000/login/new`](http://localhost:4000/login/new) from your browser.
 
 ## TODO
 
