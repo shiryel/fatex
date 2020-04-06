@@ -1,4 +1,6 @@
-# Fatex
+# Fatex 
+![tests](https://github.com/vinicius-molina/fatex/workflows/tests/badge.svg?branch=master) 
+<a href="./LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
 
 Fatex is a symple visual wrapper of the Latex, creating beautiful texts without all the complexity of the Latex.
 
